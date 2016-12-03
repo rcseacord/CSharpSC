@@ -9,6 +9,7 @@
     <Import_RootNamespace>CSharpSC</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)AssemblyInfo1.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TrimString.cs" />
   </ItemGroup>
 </Project>
