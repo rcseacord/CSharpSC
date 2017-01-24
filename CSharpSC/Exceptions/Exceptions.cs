@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
-using System.Threading.Tasks;
-
 
 [assembly: CLSCompliant(true)]
-namespace SecureCSharp {
+namespace SecureCSharp
+{
 
   public class Book
   {
@@ -23,10 +21,7 @@ namespace SecureCSharp {
       _Title = title ?? throw new ArgumentNullException(paramName: "title", message: "title cannot be a null reference");
     }
 
-    public string Title
-    {
-      get { return _Title; }
-    }
+    public string Title => _Title;
   }
 
   sealed class Apple {
@@ -111,7 +106,10 @@ namespace SecureCSharp {
     }
 
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
     static void Main() {
+
+      SerializeObjectGraph(new FileStream(@"..\..\DataFile.dat", FileMode.Create), new BinaryFormatter(), new Book("Of Mice and Men"));
 
       string s1 = new String(new char[] { '\u0063', '\u0301', '\u0327', '\u00BE' });
       if (IsKCForm(s1)) {
@@ -128,7 +126,9 @@ namespace SecureCSharp {
       Apple GreenApple = new Apple() { Color = "green" };
       if (!RedApple.Equals(GreenApple)) Console.WriteLine("different");
       if (!RedApple.Equals(Red)) Console.WriteLine("different");
-
+      // Keep the console window open in debug mode.
+      Console.WriteLine("Press any key to exit.");
+      Console.ReadKey();
     }
   }
 }

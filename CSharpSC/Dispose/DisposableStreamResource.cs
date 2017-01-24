@@ -3,10 +3,16 @@ using System;
 using System.Globalization;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Security;
 
 [assembly: CLSCompliant(true)]
 namespace SecureCSharp
 {
+  using Microsoft.Win32.SafeHandles;
+  using System;
+  using System.IO;
+  using System.Runtime.InteropServices;
+
   public class DisposableStreamResource : IDisposable
   {
     // Define constants.
@@ -16,6 +22,7 @@ namespace SecureCSharp
     internal const uint FILE_ATTRIBUTE_NORMAL = 0x80;
     internal const int INVALID_FILE_SIZE = unchecked((int)0xFFFFFFFF);
 
+    [SuppressUnmanagedCodeSecurity]
     internal static class NativeMethods
     {
       // Define Windows APIs.
@@ -47,10 +54,10 @@ namespace SecureCSharp
       if (safeFileHandle.IsInvalid)
       {
         throw new FileNotFoundException(
-          String.Format(CultureInfo.CurrentCulture, "Cannot open '{0}'", fileName), 
+          String.Format(CultureInfo.CurrentCulture, "Cannot open '{0}'", fileName),
           new System.ComponentModel.Win32Exception());  // calls Marshal.GetLastWin32Error
       }
-      
+
       // Get file size.
       bufferSize = NativeMethods.GetFileSize(this.safeFileHandle, out upperWord);
       if (bufferSize == INVALID_FILE_SIZE)
@@ -62,7 +69,7 @@ namespace SecureCSharp
     public long Size
     { get { return bufferSize; } }
 
-      public void Dispose()
+    public void Dispose()
     {
       Dispose(true);
       GC.SuppressFinalize(this);
@@ -73,12 +80,11 @@ namespace SecureCSharp
       if (disposed) return;
 
       // Dispose of managed resources here.
-      if (disposing)
-        safeFileHandle.Dispose();
+      if (disposing) safeFileHandle?.Dispose();
 
       // Dispose of any unmanaged resources not wrapped in safe handles.
 
-      disposed = true;
+      disposed = true;  
     }
-  }
-}
+  } // end public class DisposableStreamResource
+} // end namespace SecureCSharp

@@ -35,6 +35,7 @@ namespace SecureCSharp {
       // return i < j ? -1 : (i > j ? 1 : 0);
     }
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
     public static void Main() {
       int i, j;
       i = 2147483646; j = 2147483647;

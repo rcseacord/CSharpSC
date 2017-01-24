@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{AF5E1736-F8FA-4566-AAEA-6CDBEA838FFA}</ProjectGuid>
+    <ProjectGuid>{86616295-2B1B-4CE1-94C7-CC4DCFF68141}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Dispose</RootNamespace>
-    <AssemblyName>Dispose</AssemblyName>
+    <RootNamespace>MyComplexWindow</RootNamespace>
+    <AssemblyName>MyComplexWindow</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -34,12 +34,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
-    <AssemblyOriginatorKeyFile>DisposeFileName.snk</AssemblyOriginatorKeyFile>
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -51,14 +45,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DisposableResourceHolder.cs" />
-    <Compile Include="DisposableStreamResource2.cs" />
-    <Compile Include="DisposableStreamResource.cs" />
+    <Compile Include="MyComplexWindow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="DisposeFileName.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

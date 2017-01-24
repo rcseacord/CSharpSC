@@ -57,6 +57,7 @@ namespace SecureCSharp {
       return count;
     }
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
     public static void Main() {
       IList<string> MyList = new List<string>
       {

@@ -4,8 +4,10 @@ using System.Globalization;
 [assembly: CLSCompliant(true)]
 namespace SecureCSharp
 {
-  static public class CultureClub     {
-        private static void ProcessTag(string tag) {
+  static public class CultureClub
+  {
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
+    private static void ProcessTag(string tag) {
             if (tag.ToUpper().Equals("SCRIPT")) {
                 Console.WriteLine("script".ToUpper() + " equals " + "SCRIPT");
                 return;
@@ -13,7 +15,8 @@ namespace SecureCSharp
             // process tag
         }
 
-        public static void Main()
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String,System.Object)")]
+    public static void Main()
         {
             CultureInfo culture = CultureInfo.CurrentCulture;
             Console.WriteLine("The current culture is {0}", culture.Name);

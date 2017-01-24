@@ -32,6 +32,10 @@ namespace SecureCSharp
 
   class Program
   {
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String,System.Object)")]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "SecureCSharp.Form.set_Text(System.String)")]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "SecureCSharp.Form.#ctor(System.String)")]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "ReferenceEquals")]
     static void Main()
     {
@@ -72,6 +76,7 @@ namespace SecureCSharp
       Console.WriteLine(form1.Text);
     }
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "SecureCSharp.Form.set_Text(System.String)")]
     private static void Test(Point p, Form f)
     {
       p.X = 100;                       // No effect on point1 since p is a copy
@@ -80,6 +85,7 @@ namespace SecureCSharp
       f = null;                        // No effect on form1
     }
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "SecureCSharp.Form.set_Text(System.String)")]
     private static void Test(ref Point p, ref Form f)
     {
       p.X = 100;                      // No effect on point1 since p is a copy

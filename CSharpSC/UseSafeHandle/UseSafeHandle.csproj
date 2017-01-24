@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{AF5E1736-F8FA-4566-AAEA-6CDBEA838FFA}</ProjectGuid>
+    <ProjectGuid>{EB944710-53A1-4DE4-BD98-E5085636004A}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Dispose</RootNamespace>
-    <AssemblyName>Dispose</AssemblyName>
+    <RootNamespace>UseSafeHandle</RootNamespace>
+    <AssemblyName>UseSafeHandle</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -38,7 +38,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>DisposeFileName.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>UseSafeHandleKeyFile.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -51,14 +51,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DisposableResourceHolder.cs" />
-    <Compile Include="DisposableStreamResource2.cs" />
-    <Compile Include="DisposableStreamResource.cs" />
+    <Compile Include="UseSafeHandle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="DisposeFileName.snk" />
+    <None Include="UseSafeHandleKeyFile.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="file.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

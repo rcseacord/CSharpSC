@@ -37,7 +37,7 @@ namespace SecureCSharp
       this.filename = fileName;
     }
 
-    public void WriteFileInfo()
+    public bool WriteFileInfo()
     {
       if (!created)
       {
@@ -55,7 +55,7 @@ namespace SecureCSharp
       }
 
       string output = String.Format(CultureInfo.CurrentCulture, "{0}: {1:N0} bytes\n", filename, Size);
-      bool result = UnsafeNativeMethods.WriteFile(safeFileHandle, output, (uint)output.Length, out uint bytesWritten, ref nativeOverlapped);
+      return UnsafeNativeMethods.WriteFile(safeFileHandle, output, (uint)output.Length, out uint bytesWritten, ref nativeOverlapped);
     }
 
     protected new virtual void Dispose(bool disposing)
@@ -66,7 +66,7 @@ namespace SecureCSharp
       if (disposing)
         safeFileHandle.Dispose();
 
-      disposed = true;
+      disposed = true;  
 
       // Release any unmanaged resources not wrapped by safe handles here.
 
@@ -74,12 +74,12 @@ namespace SecureCSharp
       base.Dispose(true);
     }
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
     public static void Main()
     {
       using (DisposableStreamResource2 dsr2 = new DisposableStreamResource2(@"..\..\file.txt"))
       {
         Console.WriteLine("File Size = " + dsr2.Size);
-
         // Keep the console window open in debug mode.
         Console.WriteLine("Press any key to exit.");
         Console.ReadKey();

@@ -57,7 +57,9 @@ struct TwoDPoint : IEquatable<TwoDPoint>
   }
 }
 
-class Struct2DPoint {
+class Struct2DPoint
+{
+  [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
   static void Main()   {
     TwoDPoint pointA = new TwoDPoint(3, 4);
     TwoDPoint pointB = new TwoDPoint(3, 4);

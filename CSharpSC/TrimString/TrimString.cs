@@ -37,7 +37,7 @@ static public class TrimString
       return str.Substring(i);
     }
 
-    public static void Main(string[] args)
+    public static void Main()
     {
       string s1 = TrimBad("Aß東𐐀001");
       Console.WriteLine(s1);
