@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-
-// The MIT License (MIT)
+﻿// The MIT License (MIT)
 // 
-// Copyright (c) 2016 Robert C. Seacord
+// Copyright (c) 2017 Robert C. Seacord
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -23,27 +20,94 @@ using System.Collections.Generic;
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using System;
+using System.Collections.Generic;
+
 [assembly: CLSCompliant(true)]
 namespace SecureCSharp {
 
   public static class CardinalityClass {
-   private static int CardinalityBad(string value, ICollection<string> col) {
+    // returns the number of occurrences of Object obj in Collection col.
+    private static int Cardinality(string value, ICollection<string> col)
+    {
       int count = 0;
 
       IEnumerator<string> it = col.GetEnumerator();
-      while (it.MoveNext()) {
+      while (it.MoveNext())
+      {
         string elt = it.Current;
         // Because membership in the collection is checked using
         // the expression obj.equals(elt), a null pointer dereference
         // is guaranteed whenever obj is null and elt is not null.
-        if ( (value == null && elt == null) || value.Equals(elt) ) {
+        if ((value == null && elt == null) || value.Equals(elt))
+        {
           count++;
         }
       }
       return count;
     }
 
-    // returns the number of occurrences of Object obj in Collection col.
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
+    public static void Main() {
+      IList<string> MyList = new List<string>
+      {
+        "Java", "C", null, "C++", "C#"
+      };
+      Console.WriteLine("Cardinality of my list: " + Cardinality("C", MyList));
+      Console.WriteLine("Cardinality of my list: " + Cardinality(null, MyList));
+
+      // Keep the console window open in debug mode.
+      Console.WriteLine("Press any key to exit.");
+      Console.ReadKey();
+    }
+
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
     private static int Cardinality(string value, ICollection<string> col) {
       int count = 0;
 
@@ -56,20 +120,4 @@ namespace SecureCSharp {
       }
       return count;
     }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
-    public static void Main() {
-      IList<string> MyList = new List<string>
-      {
-        "Java", "C", null, "C++"
-      };
-      Console.WriteLine("Cardinality of my list: " + Cardinality("C", MyList));
-      Console.WriteLine("Cardinality of my list: " + Cardinality(null, MyList));
-
-      // Keep the console window open in debug mode.
-      Console.WriteLine("Press any key to exit.");
-      Console.ReadKey();
-    }
-
-  }
-}
+*/

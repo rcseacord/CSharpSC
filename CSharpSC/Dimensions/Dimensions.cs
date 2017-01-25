@@ -1,8 +1,6 @@
-﻿using System;
-
-// The MIT License (MIT)
+﻿// The MIT License (MIT)
 // 
-// Copyright (c) 2016 Robert C. Seacord
+// Copyright (c) 2017 Robert C. Seacord
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,6 +19,8 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
+
+using System;
 
 [assembly: CLSCompliant(true)]
 namespace SecureCSharp {
@@ -66,13 +66,6 @@ namespace SecureCSharp {
       return volume;
     }
 
-    private int GetVolumePackageGood(uint weight) {
-      if (weight > 20) {
-        throw new ArgumentOutOfRangeException(message: "Weight out of range", paramName: nameof(weight));
-      }
-      return (l + Pad) * (w + Pad) * (h + Pad);
-    }
-
     public static void Main()
     {
       Dimensions d = new Dimensions(10, 10, 10);
@@ -93,3 +86,49 @@ namespace SecureCSharp {
     }
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+private int GetVolumePackage(uint weight) {
+  if (weight > 20) {
+    throw new ArgumentOutOfRangeException(message: "Weight out of range", paramName: nameof(weight));
+  }
+  return (l + Pad) * (w + Pad) * (h + Pad);
+}
+*/
