@@ -35,7 +35,11 @@ namespace SecureCSharp
 
     public Book(string title)
     {
-      _Title = title ?? throw new ArgumentNullException(paramName: "title", message: "title cannot be a null reference");
+            if (title == null)
+            {
+                throw new ArgumentNullException(paramName: "title", message: "title cannot be a null reference");
+            }
+            _Title = title;
     }
 
     public string Title => _Title;

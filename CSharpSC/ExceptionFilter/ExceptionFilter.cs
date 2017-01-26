@@ -24,74 +24,78 @@ using System;
 
 namespace SecureCSharp
 {
-  public static class ExceptionExtension
-  {
-    public static bool LogException(this Exception exception)
+    public static class ExceptionExtension
     {
-      Console.Error.WriteLine(@"Exceptions happen: {0}", exception?.ToString());
-      return false;
+        public static bool LogException(this Exception exception)
+        {
+            Console.Error.WriteLine(@"Exceptions happen: {0}", exception?.ToString());
+            return false;
+        }
     }
-  }
-  class ExceptionFilter
-  {
-
-    static Boolean IsCapitalized(String s)
+    class ExceptionFilter
     {
-      string _s = s ?? throw new ArgumentException(
-              paramName: "s",
-              message: "null");
-      if (String.IsNullOrEmpty(s))
-      {
-        throw new ArgumentException(
-              paramName: "s",
-              message: "empty");
-      }
-      if (String.IsNullOrWhiteSpace(s))
-      {
-        throw new ArgumentException(
-              paramName: "s",
-              message: "whitespace");
-      }
-      return Char.IsUpper(_s, 0);
+
+        static Boolean IsCapitalized(String s)
+        {
+            if (s == null)
+            {
+                throw new ArgumentException(
+                        paramName: "s",
+                        message: "null");
+            }
+            string _s = s;
+            if (String.IsNullOrEmpty(s))
+            {
+                throw new ArgumentException(
+                      paramName: "s",
+                      message: "empty");
+            }
+            if (String.IsNullOrWhiteSpace(s))
+            {
+                throw new ArgumentException(
+                      paramName: "s",
+                      message: "whitespace");
+            }
+            return Char.IsUpper(_s, 0);
+        }
+
+
+        static Boolean IsPlaceName(String s)
+        {
+            try
+            {
+                return IsCapitalized(s);
+            }
+            catch (ArgumentException e)
+            {
+                e.LogException();
+            }
+            return false;
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
+        static void Main()
+        {
+            string Colorado = null;
+            Console.WriteLine(IsPlaceName(Colorado) ? "is a place" : "is not a place");
+
+            Colorado = "";
+            Console.WriteLine(IsPlaceName(Colorado) ? "is a place" : "is not a place");
+
+            Colorado = "   ";
+            Console.WriteLine(IsPlaceName(Colorado) ? "is a place" : "is not a place");
+
+            Colorado = "colorado";
+            Console.WriteLine(IsPlaceName(Colorado) ? "is a place" : "is not a place");
+
+            Colorado = "Colorado";
+            Console.WriteLine(IsPlaceName(Colorado) ? "is a place" : "is not a place");
+
+            // Keep the console window open in debug mode.
+            Console.WriteLine("Press any key to exit.");
+            Console.ReadKey();
+        }
     }
-
- 
-    static Boolean IsPlaceName(String s)
-    {
-      try
-      {
-        return IsCapitalized(s);
-      }
-      catch (ArgumentException e)
-      {
-        e.LogException();
-      }
-      return false;
-    }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
-    static void Main()
-    {
-      string Colorado = null;
-      Console.WriteLine(IsPlaceName(Colorado) ? "is a place" : "is not a place");
-
-      Colorado = "";
-      Console.WriteLine(IsPlaceName(Colorado) ? "is a place" : "is not a place");
-
-      Colorado = "   ";
-      Console.WriteLine(IsPlaceName(Colorado) ? "is a place" : "is not a place");
-
-      Colorado = "colorado";
-      Console.WriteLine(IsPlaceName(Colorado) ? "is a place" : "is not a place");
-
-      Colorado = "Colorado";
-      Console.WriteLine(IsPlaceName(Colorado) ? "is a place" : "is not a place");
-
-      // Keep the console window open in debug mode.
-      Console.WriteLine("Press any key to exit.");
-      Console.ReadKey();
-    }
-  }
 }
 
 

@@ -77,7 +77,8 @@ namespace SecureCSharp
       }
 
       string output = String.Format(CultureInfo.CurrentCulture, "{0}: {1:N0} bytes\n", filename, Size);
-      return UnsafeNativeMethods.WriteFile(safeFileHandle, output, (uint)output.Length, out uint bytesWritten, ref nativeOverlapped);
+      uint bytesWritten;
+      return UnsafeNativeMethods.WriteFile(safeFileHandle, output, (uint)output.Length, out bytesWritten, ref nativeOverlapped);
     }
 
     protected new virtual void Dispose(bool disposing)
