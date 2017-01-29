@@ -57,7 +57,7 @@ namespace SecureCSharp
             h += Pad;
             if (weight > 20)
             {
-                throw new ArgumentOutOfRangeException(message: "Weight out of range", paramName: nameof(weight));
+                throw new ArgumentOutOfRangeException(message: "Excessive weight", paramName: nameof(weight));
             }
             int volume = l * w * h; // 12 * 12 * 12 = 1728
             l -= Pad;
