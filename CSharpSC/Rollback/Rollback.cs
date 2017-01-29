@@ -47,7 +47,38 @@ namespace SecureCSharp
 
   class Rollback
   {
-    public static void SerializeObjectGraph(FileStream fs, IFormatter formatter, Object rootObj)
+
+        internal static bool RollbackTransaction(FileStream fs, Int64 b4Serialization)
+        {
+            // Catch all CLS and non-CLS exceptions.
+            // If ANYTHING goes wrong, reset the file back to a good state.
+            fs.Position = b4Serialization;
+
+            // Truncate the file.
+            fs.SetLength(fs.Position);
+
+            // NOTE: The preceding code isn't in a finally block because
+            // the stream should be reset only when serialization fails.
+
+            return false;
+        }
+        public static void SerializeObjectGraph(FileStream fs, IFormatter formatter, Object rootObj)
+        {
+            // Save the current position of the file.
+            Int64 beforeSerialization = fs.Position;
+            try
+            {
+                // Attempt to serialize the object graph to the file.
+                formatter.Serialize(fs, rootObj);
+            }
+            catch when (RollbackTransaction(fs, beforeSerialization))
+            {
+                Console.WriteLine("Never called");
+            }
+        } // end public static void SerializeObjectGraph
+
+        /*
+        public static void SerializeObjectGraph(FileStream fs, IFormatter formatter, Object rootObj)
     {
       // Save the current position of the file.
       Int64 beforeSerialization = fs.Position;
@@ -72,6 +103,8 @@ namespace SecureCSharp
         throw;
       }
     } // end public static void SerializeObjectGraph
+
+    */
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
     static void Main()
