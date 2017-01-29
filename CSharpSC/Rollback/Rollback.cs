@@ -62,6 +62,7 @@ namespace SecureCSharp
 
             return false;
         }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
         public static void SerializeObjectGraph(FileStream fs, IFormatter formatter, Object rootObj)
         {
             // Save the current position of the file.

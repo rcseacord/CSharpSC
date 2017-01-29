@@ -22,6 +22,7 @@
 
 using System;
 
+[assembly: CLSCompliant(true)]
 namespace SecureCSharp
 {
     public static class ExceptionExtension
@@ -59,7 +60,6 @@ namespace SecureCSharp
             return Char.IsUpper(_s, 0);
         }
 
-        /*
         static Boolean IsPlaceName(String s)
         {
             try
@@ -70,34 +70,7 @@ namespace SecureCSharp
             {
                 e.LogException();
             }
-            return false;
-        }
-        */
-
-        static Boolean IsPlaceName(String s)
-        {
-            try
-            {
-                return IsCapitalized(s);
-            }
-            catch (Exception e) when (e.LogException()) { }
-            catch (ArgumentException e) when (e.Message.Contains("null"))
-            {
-                Console.Error.WriteLine("Null string: {0}", e.ToString());
-            }
-            catch (ArgumentException e) when (e.Message.Contains("empty"))
-            {
-                Console.Error.WriteLine("Empty string: {0}", e.ToString());
-            }
-            catch (ArgumentException e) when (e.Message.Contains("whitespace"))
-            {
-                Console.Error.WriteLine("String contains whitespace: {0}", e.ToString());
-            }
-            catch (ArgumentException e)
-            {
-                Console.Error.WriteLine("Unexpected argument exception: {0}", e.ToString());
-            }
-            return false;
+            return false; // exceptions => false
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
