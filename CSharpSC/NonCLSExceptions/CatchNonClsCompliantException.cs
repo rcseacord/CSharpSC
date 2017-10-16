@@ -29,7 +29,7 @@ using System;
 using System.Runtime.CompilerServices;
 
 [assembly: RuntimeCompatibilityAttribute(WrapNonExceptionThrows = false)]
-namespace SecureCSharp
+namespace SaveFile
 {
 
   struct HandlesExceptions

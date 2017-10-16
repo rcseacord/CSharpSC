@@ -27,7 +27,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 
 [assembly: CLSCompliant(true)]
-namespace SecureCSharp
+namespace SaveFile
 {
 
     public class Book

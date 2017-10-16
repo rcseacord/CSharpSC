@@ -24,7 +24,7 @@ using System;
 using System.IO;
 
 [assembly: CLSCompliant(true)]
-namespace SecureCSharp
+namespace SaveFile
 {
   public static class ExceptionExtension {
     public static bool LogException(this Exception exception) {

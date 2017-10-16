@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-namespace SecureCSharp {
+namespace SaveFile {
   using System;
   class TwoDPoint : IEquatable<TwoDPoint>   {
     // Readonly auto-implemented properties.

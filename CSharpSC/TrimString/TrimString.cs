@@ -23,7 +23,7 @@
 using System;
 
 [assembly: CLSCompliant(true)]
-namespace SecureCSharp
+namespace SaveFile
 {
   static public class TrimString
   {

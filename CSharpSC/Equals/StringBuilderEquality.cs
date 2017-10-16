@@ -24,7 +24,7 @@ using System;
 using System.Text;
 
 [assembly: CLSCompliant(true)]
-namespace SecureCSharp {
+namespace SaveFile {
   public class StringBuilderEquality
   {
     /*

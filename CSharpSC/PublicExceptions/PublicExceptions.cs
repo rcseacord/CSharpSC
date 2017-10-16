@@ -24,7 +24,7 @@ using System;
 using System.Runtime.Serialization;
 
 [assembly: CLSCompliant(true)]
-namespace SecureCSharp
+namespace SaveFile
 {
   // Violates this rule
   [Serializable]

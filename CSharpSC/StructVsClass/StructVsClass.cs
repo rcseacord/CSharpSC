@@ -22,7 +22,7 @@
 
 using System;
 
-namespace SecureCSharp
+namespace SaveFile
 {
 
   // Value type

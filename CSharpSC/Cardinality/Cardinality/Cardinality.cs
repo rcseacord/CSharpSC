@@ -24,7 +24,7 @@ using System;
 using System.Collections.Generic;
 
 [assembly: CLSCompliant(true)]
-namespace SecureCSharp {
+namespace SaveFile {
 
   public static class CardinalityClass {
     // returns the number of occurrences of Object obj in Collection col.

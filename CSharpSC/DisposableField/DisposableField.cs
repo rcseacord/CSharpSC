@@ -24,7 +24,7 @@ using System;
 using System.IO;
 
 [assembly: CLSCompliant(true)]
-namespace SecureCSharp
+namespace SaveFile
 {
     // Implement the IDisposable interface and dispose of unmanaged resources. 
     public class FileStreamHolder : IDisposable

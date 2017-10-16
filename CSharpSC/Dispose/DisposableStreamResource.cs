@@ -25,7 +25,7 @@ using System.Globalization;
 using System.Security;
 
 [assembly: CLSCompliant(true)]
-namespace SecureCSharp
+namespace SaveFile
 {
   using Microsoft.Win32.SafeHandles;
   using System;

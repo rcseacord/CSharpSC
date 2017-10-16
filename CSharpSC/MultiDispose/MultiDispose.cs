@@ -24,7 +24,7 @@ using System;
 using System.IO;
 using System.Text;
 
-namespace SecureCSharp
+namespace SaveFile
 {
     class ReadAndWrite
     {

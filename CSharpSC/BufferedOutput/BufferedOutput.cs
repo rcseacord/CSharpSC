@@ -23,7 +23,7 @@
 using System;
 using System.IO;
 
-namespace SecureCSharp
+namespace SaveFile
 {
   class BufferedOutput
   {

@@ -24,7 +24,7 @@ using System;
 using System.Collections;
 
 [assembly: CLSCompliant(true)]
-namespace SecureCSharp
+namespace SaveFile
 {
 
   public class IntegerComparator : IComparer {

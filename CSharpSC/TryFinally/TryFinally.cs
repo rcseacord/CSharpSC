@@ -22,7 +22,7 @@
 
 using System;
 
-namespace SecureCSharp
+namespace SaveFile
 {
   class TryFinally {
     private static bool DoLogic()

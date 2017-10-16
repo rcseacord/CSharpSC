@@ -27,7 +27,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading;
 
-namespace SecureCSharp
+namespace SaveFile
 {
   public class DisposableStreamResource2 : DisposableStreamResource
   {

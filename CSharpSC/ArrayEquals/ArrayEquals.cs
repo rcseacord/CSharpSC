@@ -25,7 +25,7 @@ using System.Linq;
 
 
 [assembly: CLSCompliant(true)]
-namespace SecureCSharp {
+namespace SaveFile {
 
   public static class ArrayEquals {
 
