@@ -24,30 +24,23 @@ using System;
 using System.IO;
 
 [assembly: CLSCompliant(true)]
-namespace SaveFile
+namespace DisposableField
 {
     // Implement the IDisposable interface and dispose of unmanaged resources. 
     public class FileStreamHolder : IDisposable
     {
-        FileStream newFile;
+        readonly FileStream _newFile;
         public FileStreamHolder()
         {
-            newFile = new FileStream(@"..\..\file.txt", FileMode.Open);
+            _newFile = new FileStream(@"..\..\file.txt", FileMode.Open);
         }
-        public bool IsInvalid => newFile == null;
+        public bool IsInvalid => _newFile == null;
         static void Main()
         {
             FileStreamHolder fsh = new FileStreamHolder();
             try
             {
-                if (fsh.IsInvalid)
-                {
-                    Console.WriteLine("Invalid file stream");
-                }
-                else
-                {
-                    Console.WriteLine(fsh.ToString());
-                }
+                Console.WriteLine(fsh.IsInvalid ? "Invalid file stream" : fsh.ToString());
             }
             finally
             {
@@ -59,17 +52,17 @@ namespace SaveFile
         }
 
         #region IDisposable Support
-        private bool disposedValue = false; // To detect redundant calls
+        private bool _disposedValue; // To detect redundant calls
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!disposedValue)
+            if (!_disposedValue)
             {
                 if (disposing)
                 {
-                    newFile.Close();
+                    _newFile.Close();
                 }
-                disposedValue = true;
+                _disposedValue = true;
             }
         }
 

@@ -20,17 +20,18 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-namespace SaveFile {
-  using System;
-  class TwoDPoint : IEquatable<TwoDPoint>   {
+using System;
+
+namespace TwoDPoint {
+    class TwoDPoint : IEquatable<TwoDPoint>   {
     // Readonly auto-implemented properties.
-    public int X { get; private set; }
-    public int Y { get; private set; }
+    public int X { get; }
+    public int Y { get; }
 
     // Set the properties in the constructor.
     public TwoDPoint(int x, int y) {
       if ((x < 1) || (x > 2000) || (y < 1) || (y > 2000))
-        throw new System.ArgumentException("Point must be in range 1 - 2000");
+        throw new ArgumentException("Point must be in range 1 - 2000");
       this.X = x;
       this.Y = y;
     }
@@ -96,13 +97,13 @@ namespace SaveFile {
   // For the sake of simplicity, assume a ThreeDPoint IS a TwoDPoint.
   class ThreeDPoint : TwoDPoint, IEquatable<ThreeDPoint>
   {
-    public int Z { get; private set; }
+    public int Z { get; }
 
     public ThreeDPoint(int x, int y, int z)
         : base(x, y)
     {
       if ((z < 1) || (z > 2000))
-        throw new System.ArgumentException("Point must be in range 1 - 2000");
+        throw new ArgumentException("Point must be in range 1 - 2000");
       this.Z = z;
     }
 
@@ -130,7 +131,7 @@ namespace SaveFile {
       {
         // Let base class check its own fields 
         // and do the run-time type comparison.
-        return base.Equals((TwoDPoint)p);
+        return base.Equals(p);
       }
       else
         return false;
@@ -172,7 +173,6 @@ namespace SaveFile {
       TwoDPoint tp2 = new TwoDPoint(3, 4);
       Console.WriteLine(tp1.Equals(tp2));
       Console.WriteLine(((Object)tp1).Equals(tp2));
-      Console.WriteLine((tp1 as Object).Equals(tp2));
       Object tp4 = new TwoDPoint(3, 4);
       Console.WriteLine(tp4.Equals(tp2));
       Console.WriteLine(Object.Equals(tp1, tp2));
@@ -208,8 +208,8 @@ namespace SaveFile {
       Console.WriteLine("pointE.Equals(list[0]): {0}", pointE.Equals(list[0]));
 
       // Keep the console window open in debug mode.
-      System.Console.WriteLine("Press any key to exit.");
-      System.Console.ReadKey();
+      Console.WriteLine("Press any key to exit.");
+      Console.ReadKey();
     }
   }
 

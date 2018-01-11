@@ -24,9 +24,9 @@ using System;
 using System.Globalization;
 
 [assembly: CLSCompliant(true)]
-namespace SaveFile
+namespace Culture
 {
-  static public class CultureClub
+  public static class CultureClub
   {
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
     private static void ProcessTag(string tag)
@@ -34,7 +34,6 @@ namespace SaveFile
       if (tag.ToUpper().Equals("SCRIPT"))
       {
         Console.WriteLine("script".ToUpper() + " equals " + "SCRIPT");
-        return;
       }
       // process tag 
     }

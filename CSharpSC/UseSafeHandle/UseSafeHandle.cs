@@ -58,9 +58,8 @@ namespace UseSafeHandle
         // Define locals.
         private bool _disposed;
         private readonly SafeFileHandle _safeHandle;
-        private readonly long _bufferSize;
 
-        public DisposableStreamResource(string fileName)
+      public DisposableStreamResource(string fileName)
         {
             if (String.IsNullOrWhiteSpace(fileName))
             {
@@ -76,18 +75,18 @@ namespace UseSafeHandle
                 throw new FileNotFoundException(string.Format(CultureInfo.CurrentCulture, "Cannot open '{0}'", fileName));
 
             // Get file size.
-            _bufferSize = NativeMethods.GetFileSize(_safeHandle, out var upperWord);
-            if (_bufferSize == InvalidFileSize)
+            Size = NativeMethods.GetFileSize(_safeHandle, out var upperWord);
+            if (Size == InvalidFileSize)
             {
-                _bufferSize = -1;
+                Size = -1;
             }
             else if (upperWord > 0)
-                _bufferSize = (((long)upperWord) << 32) + _bufferSize;
+                Size = (((long)upperWord) << 32) + Size;
         }
 
-        public long Size => _bufferSize;
+        public long Size { get; }
 
-        public void Dispose()
+      public void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);

@@ -20,27 +20,27 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using Microsoft.Win32.SafeHandles;
 using System;
 using System.Runtime.InteropServices;
+using Microsoft.Win32.SafeHandles;
 
-namespace SaveFile
+namespace Dispose
 {
   public class DisposableResourceHolder : IDisposable
   {
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
-    private DisposableStreamResource2 resource; // handle to a resource
+    private DisposableStreamResource2 _resource; // handle to a resource
     public DisposableResourceHolder()
     {
-      resource = new DisposableStreamResource2(@"..\..\file.txt");
+      _resource = new DisposableStreamResource2(@"..\..\file.txt");
     }
 
     #region IDisposable Support
-    private bool disposedValue = false; // To detect redundant calls
+    private bool _disposedValue; // To detect redundant calls
 
     protected virtual void Dispose(bool disposing)
     {
-      if (!disposedValue)
+      if (!_disposedValue)
       {
         if (disposing)
         {
@@ -50,7 +50,7 @@ namespace SaveFile
         // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
         // TODO: set large fields to null.
 
-        disposedValue = true;
+        _disposedValue = true;
       }
     }
 
@@ -73,25 +73,25 @@ namespace SaveFile
   class DisposableResourceHolderSubclass : 
     DisposableResourceHolder
   {
-    private bool disposedValue = false; // To detect redundant calls
+    private bool _disposedValue; // To detect redundant calls
 
     // Instantiate a SafeHandle instance.
-    SafeHandle handle = new SafeFileHandle(IntPtr.Zero, true);
+      readonly SafeHandle _handle = new SafeFileHandle(IntPtr.Zero, true);
 
     // Protected implementation of Dispose pattern.
     protected override void Dispose(bool disposing)
     {
-      if (disposedValue)
+      if (_disposedValue)
         return;
 
       if (disposing)
       {
-        handle.Dispose();
+        _handle.Dispose();
         // Free any other managed objects here.
       }
       // Free any unmanaged objects here.
 
-      disposedValue = true;
+      _disposedValue = true;
       // Call base class implementation.
       base.Dispose(disposing);
     }

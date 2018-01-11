@@ -1,6 +1,6 @@
 ﻿// The MIT License (MIT)
 // 
-// Copyright (c) 2017 Robert C. Seacord
+// Copyright (c) 2018 Robert C. Seacord
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -23,18 +23,18 @@
 using System;
 
 [assembly: CLSCompliant(true)]
-namespace SaveFile {
+namespace DivideException {
     public static class ExceptionExtension
   {
     public static bool LogException(this Exception e)
     {
-      Console.Error.WriteLine(@"Exceptions happen: {0}", e.ToString());
+      Console.Error.WriteLine(@"Exceptions happen: {0}", e);
       return false;
     }
   }
   public class DivideException {
-    public static int Div(int Sum, int Total) {
-      int average = Sum / Total;
+    public static int Div(int sum, int total) {
+      int average = sum / total;
       // New code may throw UnauthorizedAccessException 
       System.IO.StreamWriter file = new System.IO.StreamWriter("c:\\divresult.txt");
       file.WriteLine(average);

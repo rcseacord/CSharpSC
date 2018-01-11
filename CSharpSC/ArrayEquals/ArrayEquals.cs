@@ -23,9 +23,8 @@
 using System;
 using System.Linq;
 
-
 [assembly: CLSCompliant(true)]
-namespace SaveFile {
+namespace ArrayEquals {
 
   public static class ArrayEquals {
 

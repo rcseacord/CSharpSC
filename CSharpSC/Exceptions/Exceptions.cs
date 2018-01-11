@@ -27,153 +27,145 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 
 [assembly: CLSCompliant(true)]
-namespace SaveFile
+namespace Exceptions
 {
 
-    public class Book
+  public class Book
+  {
+    public Book(string title) =>
+        // _Title = title ?? throw new ArgumentException();
+        // _Title = title ?? throw new ArgumentNullException();
+        // _Title = title ?? throw new ArgumentNullException("title cannot be a null reference", "title");
+        // _Title = title ?? throw new ArgumentNullException("title", "title cannot be a null reference");
+        Title = title ?? throw new ArgumentNullException(paramName: nameof(title), message: "title cannot be a null reference");
+
+    public string Title { get; }
+  }
+
+  sealed class Apple
+  {
+    public String Color { get; }
+    public override Boolean Equals(Object o)
     {
-        private readonly string _Title;
+      try
+      {
+        // throw new OutOfMemoryException();
 
-        public Book(string title)
-        {
-            //      _Title = title ?? throw new ArgumentException();
-            //  _Title = title ?? throw new ArgumentNullException();
-            // _Title = title ?? throw new ArgumentNullException("title cannot be a null reference", "title");
-            // _Title = title ?? throw new ArgumentNullException("title", "title cannot be a null reference");
-            if (title == null)
-            {
-                throw new ArgumentNullException(paramName: "title", message: "title cannot be a null reference");
-            }
-            _Title = title;
-        }
+        // Cast o to an Apple might cause the CLR to throw an InvalidCastException exception
+        Apple a = (Apple)o;
 
-        public string Title => _Title;
+        // Not equal if differnet color
+        if (Color != a.Color) return false;
+
+        // Equal if same color
+        return true;
+      }
+      // Catch InvalidCastException and return false (not equal if different types)
+      catch (Exception) { return false; }
+    }
+    public override int GetHashCode()
+    {
+      return Color.GetHashCode();
+    }
+  }
+
+  class Exceptions
+  {
+
+    public static void SerializeObjectGraph(FileStream fs, IFormatter formatter, Object rootObj)
+    {
+      // Save the current position of the file.
+      Int64 beforeSerialization = fs.Position;
+      try
+      {
+        // Attempt to serialize the object graph to the file.
+        formatter.Serialize(fs, rootObj);
+      }
+      catch
+      {  // Catch all CLS and non-CLS exceptions.
+         // If ANYTHING goes wrong, reset the file back to a good state.
+        fs.Position = beforeSerialization;
+
+        // Truncate the file.
+        fs.SetLength(fs.Position);
+
+        // NOTE: The preceding code isn't in a finally block because
+        // the stream should be reset only when serialization fails.
+
+        // Let the caller(s) know what happened by
+        // rethrowing the SAME exception.
+        throw;
+      }
     }
 
-    sealed class Apple
+    private static int GetInt(int[] array, int index)
     {
-        public String Color { get; set; }
-        public override Boolean Equals(Object o)
-        {
-            try
-            {
-                // throw new OutOfMemoryException();
-
-                // Cast o to an Apple might cause the CLR to throw an InvalidCastException exception
-                Apple a = (Apple)o;
-
-                // Not equal if differnet color
-                if (Color != a.Color) return false;
-
-                // Equal if same color
-                return true;
-            }
-            // Catch InvalidCastException and return false (not equal if different types)
-            catch (Exception) { return false; }
-        }
-        public override int GetHashCode()
-        {
-            return Color.GetHashCode();
-        }
+      try
+      {
+        return array[index];
+      }
+      catch (IndexOutOfRangeException e)
+      {
+        throw new ArgumentOutOfRangeException(
+            "Parameter index is out of range.", e);
+      }
     }
 
-    class Exceptions
+    private static bool IsKcForm(string s)
+    {
+      bool kcForm;
+      try
+      {
+        kcForm = s.IsNormalized(NormalizationForm.FormKC);
+      }
+      catch (NullReferenceException)
+      {
+        return false;
+      }
+      return kcForm;
+    }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+    public static bool IsKcForm2(string s)
+    {
+      if (s == null)
+      {
+        throw new ArgumentNullException(
+          paramName: nameof(s),
+          message: "s cannot be a null reference"
+        );
+      }
+      string str = s;
+      return str.IsNormalized(
+        NormalizationForm.FormKC
+      );
+    }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
+    static void Main()
     {
 
-        public static void SerializeObjectGraph(FileStream fs, IFormatter formatter, Object rootObj)
-        {
-            // Save the current position of the file.
-            Int64 beforeSerialization = fs.Position;
-            try
-            {
-                // Attempt to serialize the object graph to the file.
-                formatter.Serialize(fs, rootObj);
-            }
-            catch
-            {  // Catch all CLS and non-CLS exceptions.
-               // If ANYTHING goes wrong, reset the file back to a good state.
-                fs.Position = beforeSerialization;
+      SerializeObjectGraph(new FileStream(@"..\..\DataFile.dat", FileMode.Create), new BinaryFormatter(), new Book("Of Mice and Men"));
 
-                // Truncate the file.
-                fs.SetLength(fs.Position);
+      string s1 = new String(new[] { '\u0063', '\u0301', '\u0327', '\u00BE' });
+      if (IsKcForm(s1))
+      {
+        Console.WriteLine("NFKC");
+      }
+      if (!IsKcForm(null)) Console.WriteLine("Not NFKC");
 
-                // NOTE: The preceding code isn't in a finally block because
-                // the stream should be reset only when serialization fails.
+      int[] array = { 1, 2, 3 };
+      int index = 5;
+      Console.WriteLine(GetInt(array, index));
 
-                // Let the caller(s) know what happened by
-                // rethrowing the SAME exception.
-                throw;
-            }
-        }
-
-        private static int GetInt(int[] array, int index)
-        {
-            try
-            {
-                return array[index];
-            }
-            catch (System.IndexOutOfRangeException e)
-            {
-                throw new System.ArgumentOutOfRangeException(
-                    "Parameter index is out of range.", e);
-            }
-        }
-
-        private static bool IsKCForm(string s)
-        {
-            bool KCForm = false;
-            try
-            {
-                KCForm = s.IsNormalized(NormalizationForm.FormKC);
-            }
-            catch (NullReferenceException)
-            {
-                return false;
-            }
-            return KCForm;
-        }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        public static bool IsKCForm2(string s)
-        {
-            if (s == null)
-            {
-                throw new ArgumentNullException(
-                  paramName: "s",
-                  message: "s cannot be a null reference"
-                );
-            }
-            string _s = s;
-            return _s.IsNormalized(
-              NormalizationForm.FormKC
-            );
-        }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
-        static void Main()
-        {
-
-            SerializeObjectGraph(new FileStream(@"..\..\DataFile.dat", FileMode.Create), new BinaryFormatter(), new Book("Of Mice and Men"));
-
-            string s1 = new String(new char[] { '\u0063', '\u0301', '\u0327', '\u00BE' });
-            if (IsKCForm(s1))
-            {
-                Console.WriteLine("NFKC");
-            }
-            if (!IsKCForm(null)) Console.WriteLine("Not NFKC");
-
-            int[] array = { 1, 2, 3 };
-            int index = 5;
-            Console.WriteLine(GetInt(array, index));
-
-            String Red = "Red";
-            Apple RedApple = new Apple() { Color = "red" };
-            Apple GreenApple = new Apple() { Color = "green" };
-            if (!RedApple.Equals(GreenApple)) Console.WriteLine("different");
-            if (!RedApple.Equals(Red)) Console.WriteLine("different");
-            // Keep the console window open in debug mode.
-            Console.WriteLine("Press any key to exit.");
-            Console.ReadKey();
-        }
+      String Red = "Red";
+      Apple redApple = new Apple() { Color = "red" };
+      Apple greenApple = new Apple() { Color = "green" };
+      if (!redApple.Equals(greenApple)) Console.WriteLine("different");
+      if (!redApple.Equals(Red)) Console.WriteLine("different");
+      // Keep the console window open in debug mode.
+      Console.WriteLine("Press any key to exit.");
+      Console.ReadKey();
     }
+  }
 }

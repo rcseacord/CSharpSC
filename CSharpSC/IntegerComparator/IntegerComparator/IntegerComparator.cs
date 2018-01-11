@@ -24,7 +24,7 @@ using System;
 using System.Collections;
 
 [assembly: CLSCompliant(true)]
-namespace SaveFile
+namespace IntegerComparator
 {
 
   public class IntegerComparator : IComparer {
@@ -37,8 +37,8 @@ namespace SaveFile
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
     public static void Main() {
-      int i, j;
-      i = 2147483646; j = 2147483647;
+      int i = 2147483646;
+      int j = 2147483647;
       Console.WriteLine("Compare (wrong) less than: " + i.CompareTo(j));
       /*
       Console.WriteLine("Compare (wrong)  equal to: " + cmpWrong.Compare(2147483647, 2147483647));

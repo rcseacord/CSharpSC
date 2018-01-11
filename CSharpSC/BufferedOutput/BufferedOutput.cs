@@ -23,7 +23,7 @@
 using System;
 using System.IO;
 
-namespace SaveFile
+namespace BufferedOutput
 {
   class BufferedOutput
   {

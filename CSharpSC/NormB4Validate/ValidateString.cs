@@ -24,7 +24,7 @@ using System;
 using System.Text.RegularExpressions;
 
 [assembly: CLSCompliant(true)]
-namespace SaveFile
+namespace NormB4Validate
 {
 
     public class ValidateString {

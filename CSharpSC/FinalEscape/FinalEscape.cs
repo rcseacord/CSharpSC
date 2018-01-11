@@ -24,20 +24,20 @@ using System;
 using System.IO;
 
 [assembly: CLSCompliant(true)]
-namespace SaveFile
+namespace FinalEscape
 {
   public static class ExceptionExtension {
     public static bool LogException(this Exception exception) {
-      Console.Error.WriteLine("Exceptions happen: {0}", exception?.ToString());
+      Console.Error.WriteLine("Exceptions happen: {0}", exception);
       return false;
     }
   }
   class FinalEscape {
 
-    public static void DoOperation(string some_file) {
+    public static void DoOperation(string someFile) {
       // Code to check or set character encoding
       try {
-        StreamReader reader = new StreamReader(some_file);
+        StreamReader reader = new StreamReader(someFile);
         reader.Dispose();
         try
         {
@@ -55,7 +55,7 @@ namespace SaveFile
             Console.Write((char)reader.Read());  // generate exception
           }
           catch (IOException e) {
-            Console.Error.WriteLine("IOException: {0}", e.ToString());
+            Console.Error.WriteLine("IOException: {0}", e);
           }
         }
       }
@@ -70,11 +70,11 @@ namespace SaveFile
     static void Main()  {
       try {
         DoOperation(
-          Environment.GetFolderPath(System.Environment.SpecialFolder.Personal) + 
+          Environment.GetFolderPath(Environment.SpecialFolder.Personal) + 
           @"\Visual Studio 2015\Projects\CSharpSC\FinalEscape\FinalEscape.txt");
       }
       catch (Exception e) {
-        Console.Error.WriteLine("Exception: {0}", e.ToString());
+        Console.Error.WriteLine("Exception: {0}", e);
       }
 
       // Keep the console window open in debug mode.

@@ -20,20 +20,20 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using Microsoft.Win32.SafeHandles;
 using System;
 using System.Globalization;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading;
+using Microsoft.Win32.SafeHandles;
 
-namespace SaveFile
+namespace Dispose
 {
   public class DisposableStreamResource2 : DisposableStreamResource
   {
     // Define additional constants.
-    internal const uint GENERIC_WRITE = 0x40000000;
-    internal const uint OPEN_ALWAYS = 4;
+    internal const uint GenericWrite = 0x40000000;
+    internal const uint OpenAlways = 4;
 
     internal static class UnsafeNativeMethods
     {
@@ -48,48 +48,47 @@ namespace SaveFile
     }
 
     // Define locals.
-    private bool disposed = false;
-    private string filename;
-    private bool created = false;
-    private SafeFileHandle safeFileHandle;
-    private NativeOverlapped nativeOverlapped;
+    private bool _disposed;
+    private readonly string _filename;
+    private bool _created;
+    private SafeFileHandle _safeFileHandle;
+    private NativeOverlapped _nativeOverlapped;
 
     public DisposableStreamResource2(string fileName) : base(fileName)
     {
-      this.filename = fileName;
+      this._filename = fileName;
     }
 
     public bool WriteFileInfo()
     {
-      if (!created)
+      if (!_created)
       {
-         safeFileHandle = NativeMethods.CreateFile(
-          @".\FileInfo.txt", GENERIC_WRITE, 0, IntPtr.Zero, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, IntPtr.Zero
+         _safeFileHandle = NativeMethods.CreateFile(
+          @".\FileInfo.txt", GenericWrite, 0, IntPtr.Zero, OpenAlways, FileAttributeNormal, IntPtr.Zero
         );
-        if (safeFileHandle.IsInvalid)
+        if (_safeFileHandle.IsInvalid)
         {
           throw new IOException(
           String.Format(CultureInfo.CurrentCulture, "Unable to create output file."),
           new System.ComponentModel.Win32Exception());  // calls Marshal.GetLastWin32Error
         }
-        nativeOverlapped = new NativeOverlapped();
-        created = true;
+        _nativeOverlapped = new NativeOverlapped();
+        _created = true;
       }
 
-      string output = String.Format(CultureInfo.CurrentCulture, "{0}: {1:N0} bytes\n", filename, Size);
-      uint bytesWritten;
-      return UnsafeNativeMethods.WriteFile(safeFileHandle, output, (uint)output.Length, out bytesWritten, ref nativeOverlapped);
+      string output = String.Format(CultureInfo.CurrentCulture, "{0}: {1:N0} bytes\n", _filename, Size);
+      return UnsafeNativeMethods.WriteFile(_safeFileHandle, output, (uint)output.Length, out var bytesWritten, ref _nativeOverlapped);
     }
 
     protected new virtual void Dispose(bool disposing)
     {
-      if (disposed) return;
+      if (_disposed) return;
 
       // Release any managed resources here.
       if (disposing)
-        safeFileHandle.Dispose();
+        _safeFileHandle.Dispose();
 
-      disposed = true;  
+      _disposed = true;  
 
       // Release any unmanaged resources not wrapped by safe handles here.
 

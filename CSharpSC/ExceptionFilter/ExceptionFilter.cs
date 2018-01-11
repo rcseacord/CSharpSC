@@ -23,13 +23,13 @@
 using System;
 
 [assembly: CLSCompliant(true)]
-namespace SaveFile
+namespace ExceptionFilter
 {
     public static class ExceptionExtension
     {
         public static bool LogException(this Exception exception)
         {
-            Console.Error.WriteLine(@"Exceptions happen: {0}", exception?.ToString());
+            Console.Error.WriteLine(@"Exceptions happen: {0}", exception);
             return false;
         }
     }
@@ -41,26 +41,26 @@ namespace SaveFile
             if (s == null)
             {
                 throw new ArgumentException(
-                        paramName: "s",
+                        paramName: nameof(s),
                         message: "null");
             }
-            string _s = s;
+            string str = s;
             if (String.IsNullOrEmpty(s))
             {
                 throw new ArgumentException(
-                      paramName: "s",
+                      paramName: nameof(s),
                       message: "empty");
             }
             if (String.IsNullOrWhiteSpace(s))
             {
                 throw new ArgumentException(
-                      paramName: "s",
+                      paramName: nameof(s),
                       message: "whitespace");
             }
-            return Char.IsUpper(_s, 0);
+            return Char.IsUpper(str, 0);
         }
 
-        static Boolean IsPlaceName(String s)
+        static Boolean IsPlaceName(string s)
         {
             try
             {
@@ -68,28 +68,27 @@ namespace SaveFile
             }
             catch (ArgumentException e)
             {
-                e.LogException();
+                return e.LogException();
             }
-            return false; // exceptions => false
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
         static void Main()
         {
-            string Colorado = null;
-            Console.WriteLine(IsPlaceName(Colorado) ? "is a place" : "is not a place");
+            string colorado = null;
+            Console.WriteLine(IsPlaceName(colorado) ? "is a place" : "is not a place");
 
-            Colorado = "";
-            Console.WriteLine(IsPlaceName(Colorado) ? "is a place" : "is not a place");
+            colorado = "";
+            Console.WriteLine(IsPlaceName(colorado) ? "is a place" : "is not a place");
 
-            Colorado = "   ";
-            Console.WriteLine(IsPlaceName(Colorado) ? "is a place" : "is not a place");
+            colorado = "   ";
+            Console.WriteLine(IsPlaceName(colorado) ? "is a place" : "is not a place");
 
-            Colorado = "colorado";
-            Console.WriteLine(IsPlaceName(Colorado) ? "is a place" : "is not a place");
+            colorado = "colorado";
+            Console.WriteLine(IsPlaceName(colorado) ? "is a place" : "is not a place");
 
-            Colorado = "Colorado";
-            Console.WriteLine(IsPlaceName(Colorado) ? "is a place" : "is not a place");
+            colorado = "Colorado";
+            Console.WriteLine(IsPlaceName(colorado) ? "is a place" : "is not a place");
 
             // Keep the console window open in debug mode.
             Console.WriteLine("Press any key to exit.");

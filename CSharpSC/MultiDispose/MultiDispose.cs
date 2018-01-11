@@ -22,13 +22,12 @@
 
 using System;
 using System.IO;
-using System.Text;
 
-namespace SaveFile
+namespace MultiDispose
 {
     class ReadAndWrite
     {
-        static string[] lines = new string[10];
+        static readonly string[] Lines = new string[10];
        
         static void WriteFile(string fileName)
         {
@@ -37,7 +36,7 @@ namespace SaveFile
             {
                 using (StreamWriter writer = new StreamWriter(stream))
                 {
-                    foreach (string line in lines)
+                    foreach (string line in Lines)
                     {
                         writer.WriteLine(line);
                     } // end foreach (string line in lines)
@@ -53,15 +52,15 @@ namespace SaveFile
             int n = 0;
             using (StreamReader reader = new StreamReader(new FileStream(fileName, FileMode.Open)))
             {
-                while ((lines[n] = reader.ReadLine()) != null)
+                while ((Lines[n] = reader.ReadLine()) != null)
                 {
                     n++;
                 }
             }
 
             // Display the file contents by using a foreach loop.
-            System.Console.WriteLine("Contents of WriteLines2.txt = ");
-            foreach (string line in lines)
+            Console.WriteLine("Contents of WriteLines2.txt = ");
+            foreach (string line in Lines)
             {
                 // Use a tab to indent each line of the file.
                 Console.WriteLine(line);

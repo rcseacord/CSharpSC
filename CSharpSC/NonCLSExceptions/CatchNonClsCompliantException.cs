@@ -28,8 +28,8 @@
 using System;
 using System.Runtime.CompilerServices;
 
-[assembly: RuntimeCompatibilityAttribute(WrapNonExceptionThrows = false)]
-namespace SaveFile
+[assembly: RuntimeCompatibility(WrapNonExceptionThrows = false)]
+namespace NonCLSExceptions
 {
 
   struct HandlesExceptions
@@ -44,8 +44,7 @@ namespace SaveFile
       catch (Exception e)
       {
         RuntimeWrappedException rwe = e as RuntimeWrappedException;
-        Object o = rwe.WrappedException as Object;
-        if (o != null)
+        if (rwe.WrappedException is object o)
         {
           Console.WriteLine(o.ToString());
         }
@@ -55,7 +54,7 @@ namespace SaveFile
         }
 
         // Remove some permission.
-        Console.Error.WriteLine("CLS compliant exception: {0}", e.ToString());
+        Console.Error.WriteLine("CLS compliant exception: {0}", e);
       }
       catch
       {
