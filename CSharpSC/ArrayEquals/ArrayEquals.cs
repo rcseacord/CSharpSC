@@ -1,6 +1,6 @@
 ﻿// The MIT License (MIT)
 // 
-// Copyright (c) 2017 Robert C. Seacord
+// Copyright (c) 2018 Robert C. Seacord
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,16 +21,17 @@
 // SOFTWARE.
 
 using System;
+using System.Collections;
 using System.Linq;
 
 [assembly: CLSCompliant(true)]
 namespace ArrayEquals {
 
-  public static class ArrayEquals {
+  public static class CompareArrays {
 
     public static void Main() {
-      int[] arr1 = new int[20]; // initialized to 0
-      int[] arr2 = new int[20]; // initialized to 0
+      object[] arr1 = { "string", 123, true };
+      object[] arr2 = { "string", 123, true };
 
       // Object.equals() compares array references; not contents.
       Console.WriteLine(arr1.Equals(arr2)); // false
@@ -46,6 +47,12 @@ namespace ArrayEquals {
       // .NET 3.5 or higher solution
       Console.WriteLine(arr1.SequenceEqual(arr2)); // true
 
+      // .NET 4.0 or higher solution
+      Console.WriteLine((arr1 as IStructuralEquatable).Equals(arr2, StructuralComparisons.StructuralEqualityComparer));   // True
+
+      // Keep the console window open in debug mode.
+      Console.WriteLine("Press any key to exit.");
+      Console.ReadKey();
     }
   }
 }
