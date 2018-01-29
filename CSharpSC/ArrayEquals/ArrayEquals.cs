@@ -103,6 +103,7 @@ namespace ArrayEquals {
     {
       if (bx is null) throw new ArgumentNullException();
       int hCode = bx.Height ^ bx.Length ^ bx.Width;
+      hCode++;
       return hCode.GetHashCode();
     }
 

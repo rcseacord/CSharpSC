@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2010
+VisualStudioVersion = 15.0.27130.2024
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CFB2FEBC-E01A-44DF-B709-D13C04F27A67}"
 EndProject
@@ -37,7 +37,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StringIntern", "CSharpSC\St
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrimString", "CSharpSC\TrimString\TrimString.csproj", "{D15056E8-A578-4E59-8312-12845CC14217}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwoDPoint", "CSharpSC\TwoDPoint\TwoDPoint.csproj", "{3CFDDC52-5770-4EF1-AC13-2FFFF6F453E6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Symmetry", "CSharpSC\TwoDPoint\Symmetry.csproj", "{3CFDDC52-5770-4EF1-AC13-2FFFF6F453E6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dimensions", "CSharpSC\Dimensions\Dimensions.csproj", "{BA608709-43B4-4285-B779-862DB3EEA340}"
 EndProject
@@ -62,6 +62,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EqualsStruct", "CSharpSC\EqualsStruct\EqualsStruct.csproj", "{A51ABFD3-6295-4E40-9DF0-AAC34E9F97E9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nullable", "Nullable\Nullable.csproj", "{35B0922D-6613-4F93-8264-E8C4D5AD237F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transitive", "CSharpSC\Transitive\Transitive.csproj", "{FFE2008A-9DE4-4CE9-85C3-28D3E27D04A6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -417,6 +419,18 @@ Global
 		{35B0922D-6613-4F93-8264-E8C4D5AD237F}.Release|x64.Build.0 = Release|Any CPU
 		{35B0922D-6613-4F93-8264-E8C4D5AD237F}.Release|x86.ActiveCfg = Release|Any CPU
 		{35B0922D-6613-4F93-8264-E8C4D5AD237F}.Release|x86.Build.0 = Release|Any CPU
+		{FFE2008A-9DE4-4CE9-85C3-28D3E27D04A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFE2008A-9DE4-4CE9-85C3-28D3E27D04A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFE2008A-9DE4-4CE9-85C3-28D3E27D04A6}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{FFE2008A-9DE4-4CE9-85C3-28D3E27D04A6}.Debug|x64.Build.0 = Debug|Any CPU
+		{FFE2008A-9DE4-4CE9-85C3-28D3E27D04A6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FFE2008A-9DE4-4CE9-85C3-28D3E27D04A6}.Debug|x86.Build.0 = Debug|Any CPU
+		{FFE2008A-9DE4-4CE9-85C3-28D3E27D04A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFE2008A-9DE4-4CE9-85C3-28D3E27D04A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFE2008A-9DE4-4CE9-85C3-28D3E27D04A6}.Release|x64.ActiveCfg = Release|Any CPU
+		{FFE2008A-9DE4-4CE9-85C3-28D3E27D04A6}.Release|x64.Build.0 = Release|Any CPU
+		{FFE2008A-9DE4-4CE9-85C3-28D3E27D04A6}.Release|x86.ActiveCfg = Release|Any CPU
+		{FFE2008A-9DE4-4CE9-85C3-28D3E27D04A6}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -451,6 +465,7 @@ Global
 		{DE73FF4F-A87C-4428-988E-15CAA438DC88} = {CFB2FEBC-E01A-44DF-B709-D13C04F27A67}
 		{A51ABFD3-6295-4E40-9DF0-AAC34E9F97E9} = {CFB2FEBC-E01A-44DF-B709-D13C04F27A67}
 		{35B0922D-6613-4F93-8264-E8C4D5AD237F} = {CFB2FEBC-E01A-44DF-B709-D13C04F27A67}
+		{FFE2008A-9DE4-4CE9-85C3-28D3E27D04A6} = {CFB2FEBC-E01A-44DF-B709-D13C04F27A67}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {20E31201-6747-4A4B-9813-357B5CD0C1D1}

@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3CFDDC52-5770-4EF1-AC13-2FFFF6F453E6}</ProjectGuid>
+    <ProjectGuid>{FFE2008A-9DE4-4CE9-85C3-28D3E27D04A6}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>TwoDPoint</RootNamespace>
-    <AssemblyName>TwoDPoint</AssemblyName>
+    <RootNamespace>Transitive</RootNamespace>
+    <AssemblyName>Transitive</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -22,7 +21,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -45,7 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TwoDPoint.cs" />
+    <Compile Include="Transitive.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

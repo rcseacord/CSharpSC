@@ -30,10 +30,11 @@ namespace EqualsStruct
   {
     // Read/write auto-implemented properties.
     public int X { get; }
+
     public int Y { get; }
 
     public TwoDPoint(int x, int y)
-        : this()
+      : this()
     {
       X = x;
       Y = y;
@@ -80,12 +81,11 @@ namespace EqualsStruct
     {
       return !lhs.Equals(rhs);
     }
-  }
 
-  class Struct2DPoint
-  {
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
-    static void Main()
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization",
+      "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
+    private static void Main()
     {
       TwoDPoint pointA = new TwoDPoint(3, 4);
       TwoDPoint pointB = new TwoDPoint(3, 4);
@@ -108,15 +108,15 @@ namespace EqualsStruct
       Debug.Assert(null != pointA, "FAILED: pointA != null)");
 
       Debug.Assert(
-        EqualityComparer<TwoDPoint>.Default.Equals(pointA, pointB), 
+        EqualityComparer<TwoDPoint>.Default.Equals(pointA, pointB),
         "FAILED: EqualityComparer<TwoDPoint>.Default.Equals(pointA, pointB)"
       );
 
       // Compare unboxed to boxed.
       System.Collections.ArrayList list = new System.Collections.ArrayList
-            {
-                new TwoDPoint(3, 4)
-            };
+      {
+        new TwoDPoint(3, 4)
+      };
       Debug.Assert(pointA.Equals(list[0]), "FAILED:  pointA.Equals(list[0])");
 
       // Keep the console window open in debug mode.
@@ -124,4 +124,4 @@ namespace EqualsStruct
       Console.ReadKey();
     }
   }
-}
+} // end namespace
