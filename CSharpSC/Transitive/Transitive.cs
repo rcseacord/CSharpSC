@@ -144,14 +144,14 @@ namespace Transitive
 
     private static void Main()
     {
-      ThreeDPoint p1 = new ThreeDPoint(3, 4, 5);
-      TwoDPoint p2 = new TwoDPoint(3, 4);
-      ThreeDPoint p3 = new ThreeDPoint(3, 4, 7);
+      var p1 = new ThreeDPoint(3, 4, 5);
+      var p2 = new TwoDPoint(3, 4);
+      var p3 = new ThreeDPoint(3, 4, 7);
 
       // Breaks transitivity
-      Console.WriteLine("p1.Equals(p2) = {0}", p1.Equals(p2));
-      Console.WriteLine("p2.Equals(p3) = {0}", p2.Equals(p3));
-      Console.WriteLine("p1.Equals(p3) = {0}", p1.Equals(p3));
+      Console.WriteLine("p1.Equals(p2) = {0}", p1.Equals(p2)); // true
+      Console.WriteLine("p2.Equals(p3) = {0}", p2.Equals(p3)); // true
+      Console.WriteLine("p1.Equals(p3) = {0}", p1.Equals(p3)); // false
 
       // Keep the console window open in debug mode.
       Console.WriteLine("Press any key to exit.");

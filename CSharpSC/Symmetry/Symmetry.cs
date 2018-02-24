@@ -52,7 +52,7 @@ namespace Symmetry
       if (!(obj is TwoDPoint)) return false;
 
       // Compare fields
-      var p2D = (TwoDPoint) obj;
+      var p2D = (TwoDPoint)obj;
       return X == p2D.X && Y == p2D.Y;
     }
 
@@ -106,7 +106,7 @@ namespace Symmetry
       if (!(obj is ThreeDPoint)) return false;
 
       // Compare fields
-      var p3D = (ThreeDPoint) obj;
+      var p3D = (ThreeDPoint)obj;
       return Z == p3D.Z && base.Equals(p3D);
     }
 
@@ -135,14 +135,78 @@ namespace Symmetry
       return !(lhs == rhs);
     }
 
+  } // end class ThreeDPoint
+
+  public class Person : IEquatable<Person>
+  {
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+
+    public bool Equals(Person other)
+    {
+      // If parameter is null, return false.
+      if (other is null) return false;
+
+      // Optimization for a common success case.
+      if (ReferenceEquals(this, other)) return true;
+
+      // Guard against 'other' being a type derived from Person:
+      if (other.GetType() != typeof(Person)) return false;
+
+      // Compare fields
+      return this.FirstName == other?.FirstName && this.LastName == other?.LastName;
+    }
+  } // end class Person
+
+  public class Student : Person, IEquatable<Student>
+  {
+    public int Level { get; set; }
+
+    public bool Equals(Student other)
+    {
+      // If parameter is null, return false.
+      if (other is null) return false;
+
+      // Optimization for a common success case.
+      if (ReferenceEquals(this, other)) return true;
+
+      // Guard against 'other' being a type derived from Student
+      if (other.GetType() != typeof(Student)) return false;
+
+      // Compare fields
+      return base.Equals(other) && this.Level == other?.Level;
+    }
+  } // end class Student
+
+  internal class Program
+  {
     private static void Main()
     {
+      // Break symmetry in virtual Equals method
       var p1 = new TwoDPoint(3, 4);
       var p2 = new ThreeDPoint(3, 4, 5);
 
-      // Breaks symmetry
       Console.WriteLine("p1.Equals(p2) = {0}", p1.Equals(p2));  // true
       Console.WriteLine("p2.Equals(p1) = {0}", p2.Equals(p1));  // false
+
+      // Break symmetry in type-specific Equals method
+      Person p = new Person
+      {
+        FirstName = "Bill",
+        LastName = "Wagner"
+      };
+      Student s = new Student
+      {
+        FirstName = "Bill",
+        LastName = "Wagner",
+        Level = 9000
+      };
+
+      // Call resolves Person.Equals(Person)
+      Console.WriteLine(p.Equals(s));  // false
+
+      // Call also resolves Person.Equals(Person) due to overload resolution 
+      Console.WriteLine(s.Equals(p));  // true
 
       // Keep the console window open in debug mode.
       Console.WriteLine("Press any key to exit.");

@@ -1,6 +1,6 @@
 ﻿// The MIT License (MIT)
 // 
-// Copyright (c) 2017 Robert C. Seacord
+// Copyright (c) 2018 Robert C. Seacord
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -61,7 +61,7 @@ namespace UseSafeHandle
 
       public DisposableStreamResource(string fileName)
         {
-            if (String.IsNullOrWhiteSpace(fileName))
+            if (string.IsNullOrWhiteSpace(fileName))
             {
                 throw new ArgumentException(message: "The filename cannot be null, empty, or whitespace.", paramName: nameof(fileName));
             }
@@ -81,10 +81,14 @@ namespace UseSafeHandle
                 Size = -1;
             }
             else if (upperWord > 0)
-                Size = (((long)upperWord) << 32) + Size;
+                Size = ((long)upperWord << 32) + Size;
         }
 
-        public long Size { get; }
+    public DisposableStreamResource()
+    {
+    }
+
+    public long Size { get; }
 
       public void Dispose()
         {
@@ -108,7 +112,7 @@ namespace UseSafeHandle
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
         public static void Main()
         {
-            using (DisposableStreamResource dsr = new DisposableStreamResource(@"..\..\file.txt"))
+            using (var dsr = new DisposableStreamResource(@"..\..\file.txt"))
             {
                 Console.WriteLine("File Size = " + dsr.Size);
                 // Keep the console window open in debug mode.
@@ -117,7 +121,8 @@ namespace UseSafeHandle
             }
         }
     } // end public class DisposableStreamResource
-} // end namespace SecureCSharp
+
+} // end namespace UseSafeHandle
 
 
 
