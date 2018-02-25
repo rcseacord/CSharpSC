@@ -1,6 +1,6 @@
 ﻿// The MIT License (MIT)
 // 
-// Copyright (c) 2017 Robert C. Seacord
+// Copyright (c) 2018 Robert C. Seacord
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -25,170 +25,175 @@ using System.IO;
 
 namespace MultiDispose
 {
-    class ReadAndWrite
+  internal static class ReadAndWrite
+  {
+    private static readonly string[] Lines = new string[10];
+
+    public static void WriteFile(string fileName)
     {
-        static readonly string[] Lines = new string[10];
-       
-        static void WriteFile(string fileName)
+      // Write only some strings in an array to a file.
+      using (Stream stream = new FileStream(fileName, FileMode.OpenOrCreate))
+      {
+        using (var writer = new StreamWriter(stream))
         {
-            // Write only some strings in an array to a file.
-            using (Stream stream = new FileStream(fileName, FileMode.OpenOrCreate))
-            {
-                using (StreamWriter writer = new StreamWriter(stream))
-                {
-                    foreach (string line in Lines)
-                    {
-                        writer.WriteLine(line);
-                    } // end foreach (string line in lines)
-                } // end using (StreamWriter file = new StreamWriter(stream))
-            } // end using (Stream stream = new FileStream(fileName, FileMode.OpenOrCreate))
-        } // end void WriteFile(string fileName)
+          foreach (string line in Lines)
+          {
+            writer.WriteLine(line);
+          } // end foreach (string line in lines)
+        } // end using (StreamWriter file = new StreamWriter(stream))
+      } // end using (Stream stream = new FileStream(fileName, FileMode.OpenOrCreate))
+    } // end void WriteFile(string fileName)
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
-        static void ReadFile(string fileName)
-        {
-            // Read each line of the file into a string array. Each element
-            // of the array is one line of the file.
-            int n = 0;
-            using (StreamReader reader = new StreamReader(new FileStream(fileName, FileMode.Open)))
-            {
-                while ((Lines[n] = reader.ReadLine()) != null)
-                {
-                    n++;
-                }
-            }
-
-            // Display the file contents by using a foreach loop.
-            Console.WriteLine("Contents of WriteLines2.txt = ");
-            foreach (string line in Lines)
-            {
-                // Use a tab to indent each line of the file.
-                Console.WriteLine(line);
-            }
-        }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
-        static void Main()
-        {
-            ReadFile(@"..\..\file.txt");
-            WriteFile(@"..\..\output.txt");
-
-            // Keep the console window open in debug mode.
-            Console.WriteLine("Press any key to exit.");
-            Console.ReadKey();
-        }  // end static void Main()
-    } // end class ReadAndWrite
-}  // end namespace SecureCSharp
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-    class ReadAndWrite
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
+    public static void ReadFile(string fileName)
     {
-        static string[] lines = new string[10];
-
-        static void WriteFile(string fileName)
+      // Read each line of the file into a string array. Each element
+      // of the array is one line of the file.
+      int n = 0;
+      using (var reader = new StreamReader(new FileStream(fileName, FileMode.Open)))
+      {
+        while ((Lines[n] = reader.ReadLine()) != null)
         {
-            Stream stream = null;
-            try
-            {
-                stream = new FileStream(fileName, FileMode.OpenOrCreate);
-                using (StreamWriter writer = new StreamWriter(stream))
-                {
-                    stream = null;
-                    foreach (string line in lines)
-                    {
-                        writer.WriteLine(line);
-                    } // end foreach (string line in lines)
-                }
-            }
-            finally
-            {
-                stream?.Dispose();
-            }
-        } // end void WriteFile(string fileName)
-*/
-
-/*
-    static void ReadFile(string fileName)
-    {
-        // Read each line of the file into a string array. Each element
-        // of the array is one line of the file.
-        int n = 0;
-        Stream stream = null;
-        try
-        {
-            stream = new FileStream(fileName, FileMode.OpenOrCreate);
-            using (StreamReader reader = new StreamReader(stream))
-            {
-                stream = null;
-                while ((lines[n] = reader.ReadLine()) != null)
-                {
-                    n++;
-                }
-            }
+          n++;
         }
-        finally
-        {
-            stream?.Dispose();
-        }
+      }
 
-        // Display the file contents by using a foreach loop.
-        System.Console.WriteLine("Contents of WriteLines2.txt = ");
-        foreach (string line in lines)
-        {
-            // Use a tab to indent each line of the file.
-            Console.WriteLine(line);
-        }
+      // Display the file contents by using a foreach loop.
+      Console.WriteLine("Contents of WriteLines2.txt = ");
+      foreach (string line in Lines)
+      {
+        // Use a tab to indent each line of the file.
+        Console.WriteLine(line);
+      }
     }
+
+  } // end class ReadAndWrite
+
+  internal class MultiDispose
+  {
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
+    private static void Main()
+    {
+      ReadAndWrite.ReadFile(@"..\..\file.txt");
+      ReadAndWrite.WriteFile(@"..\..\output.txt");
+
+      // Keep the console window open in debug mode.
+      Console.WriteLine("Press any key to exit.");
+      Console.ReadKey();
+    }  // end static void Main()
+  } // end class MultiDispose
+}  // end namespace MultiDispose
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
+  internal static class ReadAndWrite
+  {
+    private static readonly string[] Lines = new string[10];
+
+    public static void WriteFile(string fileName)
+    {
+      Stream stream = null;
+      try
+      {
+        stream = new FileStream(fileName, FileMode.OpenOrCreate);
+        using (var writer = new StreamWriter(stream))
+        {
+          stream = null;
+          foreach (string line in Lines)
+          {
+            writer.WriteLine(line);
+          } // end foreach (string line in lines)
+        }
+      }
+      finally
+      {
+        stream?.Dispose();
+      }
+    } // end void WriteFile(string fileName)
+
+    public static void ReadFile(string fileName)
+    {
+      // Read each line of the file into a string array. Each element
+      // of the array is one line of the file.
+      int n = 0;
+      Stream stream = null;
+      try
+      {
+        stream = new FileStream(fileName, FileMode.OpenOrCreate);
+        using (var reader = new StreamReader(stream))
+        {
+          stream = null;
+          while ((Lines[n] = reader.ReadLine()) != null)
+          {
+            n++;
+          }
+        }
+      }
+      finally
+      {
+        stream?.Dispose();
+      }
+
+      // Display the file contents by using a foreach loop.
+      Console.WriteLine("Contents of WriteLines2.txt = ");
+      foreach (string line in Lines)
+      {
+        // Use a tab to indent each line of the file.
+        Console.WriteLine(line);
+      }
+    }
+  }  // end class ReadWrite
+
 */
