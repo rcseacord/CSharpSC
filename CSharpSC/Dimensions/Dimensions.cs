@@ -1,6 +1,6 @@
 ﻿// The MIT License (MIT)
 // 
-// Copyright (c) 2017 Robert C. Seacord
+// Copyright (c) 2018 Robert C. Seacord
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -44,9 +44,9 @@ namespace SecureCSharp
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "h")]
     public Dimensions(int l, int w, int h)
     {
-      this._l = l;
-      this._w = w;
-      this._h = h;
+      _l = l;
+      _w = w;
+      _h = h;
     }
 
     private int GetVolumePackage(uint weight)
@@ -59,17 +59,20 @@ namespace SecureCSharp
         throw new ArgumentOutOfRangeException(message: "Excessive weight", paramName: nameof(weight));
       }
       int volume = _l * _w * _h; // 12 * 12 * 12 = 1728
+
+      // Revert fields
       _l -= Pad;
       _w -= Pad;
-      _h -= Pad; // Revert
+      _h -= Pad; 
+
       return volume;
     }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
     public static void Main()
     {
-      Boolean status = true;
-      Dimensions d = new Dimensions(10, 10, 10);
+      bool status = true;
+      var d = new Dimensions(10, 10, 10);
       try
       {
         Console.WriteLine(d.GetVolumePackage(21));
@@ -92,9 +95,9 @@ namespace SecureCSharp
       Console.WriteLine("Press any key to exit.");
       Console.ReadKey();
       Environment.Exit(status ? 0 : 1);
-    }
-  }
-}
+    }  // end Main
+  } // end class Dimensions
+} // end NameSpace
 
 
 

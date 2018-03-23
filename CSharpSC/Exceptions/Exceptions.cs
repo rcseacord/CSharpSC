@@ -159,10 +159,10 @@ namespace Exceptions
       Console.WriteLine(GetInt(array, index));
 
       String Red = "Red";
-      Apple redApple = new Apple() { Color = "red" };
-      Apple greenApple = new Apple() { Color = "green" };
-      if (!redApple.Equals(greenApple)) Console.WriteLine("different");
-      if (!redApple.Equals(Red)) Console.WriteLine("different");
+ //     Apple redApple = new Apple() { Color = "red" };
+ //     Apple greenApple = new Apple() { Color = "green" };
+ //     if (!redApple.Equals(greenApple)) Console.WriteLine("different");
+ //     if (!redApple.Equals(Red)) Console.WriteLine("different");
       // Keep the console window open in debug mode.
       Console.WriteLine("Press any key to exit.");
       Console.ReadKey();

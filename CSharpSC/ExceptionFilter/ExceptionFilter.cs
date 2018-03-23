@@ -1,6 +1,6 @@
 ﻿// The MIT License (MIT)
 // 
-// Copyright (c) 2017 Robert C. Seacord
+// Copyright (c) 2018 Robert C. Seacord
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -23,188 +23,198 @@
 using System;
 
 [assembly: CLSCompliant(true)]
+
 namespace ExceptionFilter
 {
-    public static class ExceptionExtension
+  public static class ExceptionExtension
+  {
+    public static bool LogException(this Exception exception)
     {
-        public static bool LogException(this Exception exception)
-        {
-            Console.Error.WriteLine(@"Exceptions happen: {0}", exception);
-            return false;
-        }
+      Console.Error.WriteLine(@"Exceptions happen: {0}", exception);
+      return false;
     }
-    class ExceptionFilter
+  }
+
+  internal static class ExceptionFilter
+  {
+    private static bool IsCapitalized(string s)
     {
+      string str = s ?? throw new ArgumentNullException(
+                     paramName: nameof(s),
+                     message: "s cannot be a null reference"
+                   );
 
-        static Boolean IsCapitalized(String s)
-        {
-            if (s == null)
-            {
-                throw new ArgumentException(
-                        paramName: nameof(s),
-                        message: "null");
-            }
-            string str = s;
-            if (String.IsNullOrEmpty(s))
-            {
-                throw new ArgumentException(
-                      paramName: nameof(s),
-                      message: "empty");
-            }
-            if (String.IsNullOrWhiteSpace(s))
-            {
-                throw new ArgumentException(
-                      paramName: nameof(s),
-                      message: "whitespace");
-            }
-            return Char.IsUpper(str, 0);
-        }
+      if (string.IsNullOrEmpty(s))
+      {
+        throw new ArgumentException(
+          paramName: nameof(s),
+          message: "s cannot be empty");
+      }
 
-        static Boolean IsPlaceName(string s)
-        {
-            try
-            {
-                return IsCapitalized(s);
-            }
-            catch (ArgumentException e)
-            {
-                return e.LogException();
-            }
-        }
+      if (string.IsNullOrWhiteSpace(s))
+      {
+        throw new ArgumentException(
+          paramName: nameof(s),
+          message: "s cannot be whitespace");
+      }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
-        static void Main()
-        {
-            string colorado = null;
-            Console.WriteLine(IsPlaceName(colorado) ? "is a place" : "is not a place");
-
-            colorado = "";
-            Console.WriteLine(IsPlaceName(colorado) ? "is a place" : "is not a place");
-
-            colorado = "   ";
-            Console.WriteLine(IsPlaceName(colorado) ? "is a place" : "is not a place");
-
-            colorado = "colorado";
-            Console.WriteLine(IsPlaceName(colorado) ? "is a place" : "is not a place");
-
-            colorado = "Colorado";
-            Console.WriteLine(IsPlaceName(colorado) ? "is a place" : "is not a place");
-
-            // Keep the console window open in debug mode.
-            Console.WriteLine("Press any key to exit.");
-            Console.ReadKey();
-        }
+      return char.IsUpper(str, 0);
     }
-}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-    static Boolean IsPlaceName(String s)
+    public static bool IsPlaceName(string s)
     {
       try
       {
         return IsCapitalized(s);
       }
-      catch (Exception e) when (e.LogException()) { }
-      catch (ArgumentException e) when (e.Message.Contains("null"))
+      catch (ArgumentException e)
       {
-        Console.Error.WriteLine("Null string: {0}", e.ToString());
+        return e.LogException();
       }
-      catch (ArgumentException e) when (e.Message.Contains("empty"))
-      {
-        Console.Error.WriteLine("Empty string: {0}", e.ToString());
-      }
-      catch (ArgumentException e) when (e.Message.Contains("whitespace"))
-      {
-        Console.Error.WriteLine("String contains whitespace: {0}", e.ToString());
-      }
-      catch (ArgumentException e) 
-      {
-        Console.Error.WriteLine("Unexpected argument exception: {0}", e.ToString());
-      }
-      return false;
+    } // end IsPlaceName
+
+  }  // end internal static class ExceptionFiler
+
+  internal class Program
+  {
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization",
+      "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
+    private static void Main()
+    {
+      string colorado = null;
+      // ReSharper disable once ExpressionIsAlwaysNull
+      Console.WriteLine(ExceptionFilter.IsPlaceName(colorado) ? "is a place" : "is not a place");
+
+      colorado = "";
+      Console.WriteLine(ExceptionFilter.IsPlaceName(colorado) ? "is a place" : "is not a place");
+
+      colorado = "   ";
+      Console.WriteLine(ExceptionFilter.IsPlaceName(colorado) ? "is a place" : "is not a place");
+
+      colorado = "colorado";
+      Console.WriteLine(ExceptionFilter.IsPlaceName(colorado) ? "is a place" : "is not a place");
+
+      colorado = "Colorado";
+      Console.WriteLine(ExceptionFilter.IsPlaceName(colorado) ? "is a place" : "is not a place");
+
+      // Keep the console window open in debug mode.
+      Console.WriteLine("Press any key to exit.");
+      Console.ReadKey();
     }
-    */
+  } // internal class Program
+} // namespace ExceptionFilter
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//  public static bool IsPlaceName(string s)
+//  {
+//    try
+//    {
+//      return IsCapitalized(s);
+//    }
+//    catch (Exception e) when (e.LogException())
+//    {
+//    }
+//    catch (ArgumentException e) when (e.Message.Contains("null"))
+//    {
+//      Console.Error.WriteLine("Null string: {0}", e);
+//    }
+//    catch (ArgumentException e) when (e.Message.Contains("empty"))
+//    {
+//      Console.Error.WriteLine("Empty string: {0}", e);
+//    }
+//    catch (ArgumentException e) when (e.Message.Contains("whitespace"))
+//    {
+//      Console.Error.WriteLine("String contains whitespace: {0}", e);
+//    }
+//    catch (ArgumentException e)
+//    {
+//      Console.Error.WriteLine("Unexpected argument exception: {0}", e);
+//    }
+
+//    return false;
+//  }

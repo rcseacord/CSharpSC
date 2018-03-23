@@ -1,6 +1,6 @@
 ﻿// The MIT License (MIT)
 // 
-// Copyright (c) 2017 Robert C. Seacord
+// Copyright (c) 2018 Robert C. Seacord
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -36,12 +36,12 @@ namespace Rollback
     public string Title { get; }
   }
 
-  class Rollback
+  internal static class Rollback
   {
-    public static void SerializeObjectGraph(FileStream fs, IFormatter formatter, Object rootObj)
+    public static void SerializeObjectGraph(FileStream fs, IFormatter formatter, object rootObj)
     {
       // Save the current position of the file.
-      Int64 beforeSerialization = fs.Position;
+      long beforeSerialization = fs.Position;
       try
       {
         // Attempt to serialize the object graph to the file.
@@ -63,21 +63,24 @@ namespace Rollback
         throw;
       }
     } // end public static void SerializeObjectGraph
+  } // end class Rollback
 
+  internal class Program
+  {
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
-    static void Main()
+    private static void Main()
     {
-      using (FileStream fs = new FileStream(@"..\..\DataFile.dat", FileMode.Create))
+      using (var fs = new FileStream(@"..\..\DataFile.dat", FileMode.Create))
       {
-        SerializeObjectGraph(fs, new BinaryFormatter(), new Book("Of Mice and Men"));
+        Rollback.SerializeObjectGraph(fs, new BinaryFormatter(), new Book("Of Mice and Men"));
       }
 
       // Keep the console window open in debug mode.
       Console.WriteLine("Press any key to exit.");
       Console.ReadKey();
-    }
-  }
-}
+    } // end Main
+  } // end class Program
+}  // end namespace Rollback
 
 
 
@@ -125,32 +128,34 @@ namespace Rollback
 
 
 /*
-internal static bool RollbackTransaction(FileStream fs, Int64 b4Serialization)
-{
-  // Catch all CLS and non-CLS exceptions.
-  // If ANYTHING goes wrong, reset the file back to a good state.
-  fs.Position = b4Serialization;
+    internal static bool RollbackTransaction(FileStream fs, long b4Serialization)
+    {
+      // Catch all CLS and non-CLS exceptions.
+      // If ANYTHING goes wrong, reset the file back to a good state.
+      fs.Position = b4Serialization;
 
-  // Truncate the file.
-  fs.SetLength(fs.Position);
+      // Truncate the file.
+      fs.SetLength(fs.Position);
 
-  // NOTE: The preceding code isn't in a finally block because
-  // the stream should be reset only when serialization fails.
+      // NOTE: The preceding code isn't in a finally block because
+      // the stream should be reset only when serialization fails.
 
-  return false;
-}
-public static void SerializeObjectGraph(FileStream fs, IFormatter formatter, Object rootObj)
-{
-  // Save the current position of the file.
-  Int64 beforeSerialization = fs.Position;
-  try
-  {
-    // Attempt to serialize the object graph to the file.
-    formatter.Serialize(fs, rootObj);
-  }
-  catch when (RollbackTransaction(fs, beforeSerialization))
-  {
-    Console.WriteLine("Never called");
-  }
-} // end public static void SerializeObjectGraph
+      return false;
+    }
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
+    public static void SerializeObjectGraph(FileStream fs, IFormatter formatter, object rootObj)
+    {
+      // Save the current position of the file.
+      long beforeSerialization = fs.Position;
+      try
+      {
+        // Attempt to serialize the object graph to the file.
+        formatter.Serialize(fs, rootObj);
+      }
+      catch when (RollbackTransaction(fs, beforeSerialization))
+      {
+        Console.WriteLine("Never called");
+      }
+    } // end public static void SerializeObjectGraph
+
 */

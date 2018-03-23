@@ -41,6 +41,7 @@ namespace MultiDispose
             writer.WriteLine(line);
           } // end foreach (string line in lines)
         } // end using (StreamWriter file = new StreamWriter(stream))
+
       } // end using (Stream stream = new FileStream(fileName, FileMode.OpenOrCreate))
     } // end void WriteFile(string fileName)
 
