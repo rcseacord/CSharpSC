@@ -71,7 +71,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnhandledException", "Unhan
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeDatabase", "EmployeeDatabase\EmployeeDatabase.csproj", "{1C91A7C0-B60C-477B-B136-6AA66152AAAE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandleLeak", "SafeHandleDemo\HandleLeak.csproj", "{C5E40CCE-904F-4F29-920C-5DAC41F98ABC}"
+EndProject
 Global
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|x64 = Debug|x64
@@ -473,6 +478,18 @@ Global
 		{1C91A7C0-B60C-477B-B136-6AA66152AAAE}.Release|x64.Build.0 = Release|Any CPU
 		{1C91A7C0-B60C-477B-B136-6AA66152AAAE}.Release|x86.ActiveCfg = Release|Any CPU
 		{1C91A7C0-B60C-477B-B136-6AA66152AAAE}.Release|x86.Build.0 = Release|Any CPU
+		{C5E40CCE-904F-4F29-920C-5DAC41F98ABC}.Debug|Any CPU.ActiveCfg = Release|Any CPU
+		{C5E40CCE-904F-4F29-920C-5DAC41F98ABC}.Debug|Any CPU.Build.0 = Release|Any CPU
+		{C5E40CCE-904F-4F29-920C-5DAC41F98ABC}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C5E40CCE-904F-4F29-920C-5DAC41F98ABC}.Debug|x64.Build.0 = Debug|Any CPU
+		{C5E40CCE-904F-4F29-920C-5DAC41F98ABC}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C5E40CCE-904F-4F29-920C-5DAC41F98ABC}.Debug|x86.Build.0 = Debug|Any CPU
+		{C5E40CCE-904F-4F29-920C-5DAC41F98ABC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5E40CCE-904F-4F29-920C-5DAC41F98ABC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5E40CCE-904F-4F29-920C-5DAC41F98ABC}.Release|x64.ActiveCfg = Release|Any CPU
+		{C5E40CCE-904F-4F29-920C-5DAC41F98ABC}.Release|x64.Build.0 = Release|Any CPU
+		{C5E40CCE-904F-4F29-920C-5DAC41F98ABC}.Release|x86.ActiveCfg = Release|Any CPU
+		{C5E40CCE-904F-4F29-920C-5DAC41F98ABC}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -511,6 +528,7 @@ Global
 		{047A8FFA-3B53-4566-894B-BD51166C6518} = {CFB2FEBC-E01A-44DF-B709-D13C04F27A67}
 		{41008042-CB1B-478F-9FFA-98C3BC9EB12C} = {CFB2FEBC-E01A-44DF-B709-D13C04F27A67}
 		{1C91A7C0-B60C-477B-B136-6AA66152AAAE} = {CFB2FEBC-E01A-44DF-B709-D13C04F27A67}
+		{C5E40CCE-904F-4F29-920C-5DAC41F98ABC} = {CFB2FEBC-E01A-44DF-B709-D13C04F27A67}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {20E31201-6747-4A4B-9813-357B5CD0C1D1}

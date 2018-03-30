@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{047A8FFA-3B53-4566-894B-BD51166C6518}</ProjectGuid>
+    <ProjectGuid>{C5E40CCE-904F-4F29-920C-5DAC41F98ABC}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>DerivedDisposable</RootNamespace>
-    <AssemblyName>DerivedDisposable</AssemblyName>
+    <RootNamespace>SafeHandleDemo</RootNamespace>
+    <AssemblyName>SafeHandleDemo</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -21,9 +21,9 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>latest</LangVersion>
     <RunCodeAnalysis>true</RunCodeAnalysis>
     <CodeAnalysisIgnoreGeneratedCode>false</CodeAnalysisIgnoreGeneratedCode>
-    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -45,7 +45,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DerivedDisposable.cs" />
+    <Compile Include="Finalizer.cs" />
+    <Compile Include="SafeHandleDemoV2.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

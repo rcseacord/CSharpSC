@@ -158,7 +158,7 @@ namespace Exceptions
       int index = 5;
       Console.WriteLine(GetInt(array, index));
 
-      String Red = "Red";
+ //     String Red = "Red";
  //     Apple redApple = new Apple() { Color = "red" };
  //     Apple greenApple = new Apple() { Color = "green" };
  //     if (!redApple.Equals(greenApple)) Console.WriteLine("different");

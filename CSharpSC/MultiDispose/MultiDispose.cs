@@ -81,7 +81,7 @@ namespace MultiDispose
       // Keep the console window open in debug mode.
       Console.WriteLine("Press any key to exit.");
       Console.ReadKey();
-    }  // end static void Main()
+    }  // end static void Main() 
   } // end class MultiDispose
 }  // end namespace MultiDispose
 
