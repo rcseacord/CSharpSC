@@ -21,43 +21,48 @@
 // SOFTWARE.
 
 using System;
+using System.Text;
 using System.Text.RegularExpressions;
 
 [assembly: CLSCompliant(true)]
 namespace SecureCSharp
 {
 
-    public class ValidateString {
+  public class ValidateString
+  {
 
-        public static string NormalizeandValidate(string s) {
+    public static string NormalizeandValidate(string s)
+    {
+      // Validate by checking for angle brackets
+      Regex rgx = new Regex("[<>]", RegexOptions.IgnoreCase);
+      Match match = rgx.Match(s);
+      if (match.Success)
+      {
+        // Found black listed tag
+        throw new InvalidOperationException();
+      }
+      else
+      {
+        Console.WriteLine("input valid");
+      }
 
+      // Normalize to form KC 
+      s = s.Normalize(NormalizationForm.FormKC);
 
-            // Normalize to default to normalization form C 
-            //           s = s.Normalize(NormalizationForm.FormKC);
-            s = s.Normalize();
-
-            // Validate by checking for angle brackets
-            Regex rgx = new Regex("[<>]", RegexOptions.IgnoreCase);
-            Match match = rgx.Match(s);
-            if (match.Success) {
-                // Found black listed tag
-                throw new InvalidOperationException();
-            }
-            else {
-                Console.WriteLine("input valid");
-            }
-
-            return s;
-        }
-
-        public static void Main(string[] args) {
-            // Assume input is user controlled
-            // \uFE64 is normalized to < and \uFE65 is normalized to > using the
-            // NFKC normalization form
-            string input = "\uFE64" + "script" + "\uFE65";
-            Console.WriteLine("unnormalized string: " + input);
-            input = NormalizeandValidate(input);
-            Console.WriteLine("normalized string: " + input);
-        }
+      return s;
     }
+
+    public static void Main(string[] args)
+    {
+      // Assume input is user controlled
+      // \uFE64 is normalized to < and \uFE65 is normalized to > using the
+      // NFKC normalization form
+      string input = "\uFE64" + "script" + "\uFE65";
+      Console.WriteLine("unnormalized string: " + input);
+      input = NormalizeandValidate(input);
+      Console.WriteLine("normalized string: " + input);
+      Console.WriteLine("Press any key to close");
+      Console.ReadKey();
+    }
+  }
 }

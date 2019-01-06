@@ -55,7 +55,7 @@ struct TwoDPoint : IEquatable<TwoDPoint>
     return X ^ Y;
   }
 
-  public static bool operator ==(TwoDPoint lhs, TwoDPoint rhs)
+    public static bool operator ==(TwoDPoint lhs, TwoDPoint rhs)
   {
     // Check for null on left side.
     if (Object.ReferenceEquals(lhs, null))
@@ -72,12 +72,12 @@ struct TwoDPoint : IEquatable<TwoDPoint>
     // Equals handles case of null on right side.
     return lhs.Equals(rhs);
   }
-
+ 
   public static bool operator !=(TwoDPoint lhs, TwoDPoint rhs)
   {
     return !(lhs.Equals(rhs));
   }
-}
+  }
 
 class Struct2DPoint
 {
@@ -86,6 +86,9 @@ class Struct2DPoint
     TwoDPoint pointA = new TwoDPoint(3, 4);
     TwoDPoint pointB = new TwoDPoint(3, 4);
     int i = 5;
+  if (false) {
+            i = 7;
+}
 
     // Compare using virtual Equals, static Equals, and == and != operators.
     // True:
