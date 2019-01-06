@@ -1,6 +1,6 @@
 ﻿// The MIT License (MIT)
 // 
-// Copyright (c) 2017 Robert C. Seacord
+// Copyright (c) 2019 Robert C. Seacord
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -22,6 +22,7 @@
 
 using System;
 using System.Globalization;
+using System.Threading;
 
 [assembly: CLSCompliant(true)]
 namespace Culture
@@ -29,13 +30,13 @@ namespace Culture
   public static class CultureClub
   {
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
-    private static void ProcessTag(string tag)
+    private static void ProcessAccount(string name)
     {
-      if (tag.ToUpper().Equals("SCRIPT"))
+      if (name.ToUpper().Equals("ADMIN"))
       {
-        Console.WriteLine("script".ToUpper() + " equals " + "SCRIPT");
+        Console.WriteLine("admin".ToUpper() + " equals ADMIN");
       }
-      // process tag 
+      // process account 
     }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String,System.Object)")]
@@ -43,7 +44,11 @@ namespace Culture
     {
       CultureInfo culture = CultureInfo.CurrentCulture;
       Console.WriteLine("The current culture is {0}", culture.Name);
-      ProcessTag("script");
+      // Set the culture to Turkish for this thread for testing purposes 
+      CultureInfo ci = new CultureInfo("tr-TR");
+      Thread.CurrentThread.CurrentCulture = ci;
+      Thread.CurrentThread.CurrentUICulture = ci;
+      ProcessAccount("admin");
       // Keep the console window open in debug mode.
       Console.WriteLine("Press any key to exit.");
       Console.ReadKey();
@@ -118,13 +123,13 @@ namespace Culture
 
 
 /*
-private static void processTag(string tag)
+private static void processAccount(string name)
 {
-    if (tag.ToUpper(CultureInfo.InvariantCulture).Equals("SCRIPT"))
+    if (name.ToUpper(CultureInfo.InvariantCulture).Equals("ADMIN"))
     {
-        Console.WriteLine("script".ToUpper(CultureInfo.InvariantCulture) + " equals " + "SCRIPT");
+        Console.WriteLine("script".ToUpper(CultureInfo.InvariantCulture) + " equals ADMIN");
         return;
     }
-    // process tag
+    // process account
 }
 */
