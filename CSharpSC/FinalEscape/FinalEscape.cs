@@ -1,6 +1,6 @@
 ﻿// The MIT License (MIT)
 // 
-// Copyright (c) 2017 Robert C. Seacord
+// Copyright (c) 2018 Robert C. Seacord
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -24,20 +24,24 @@ using System;
 using System.IO;
 
 [assembly: CLSCompliant(true)]
-namespace SecureCSharp
+namespace FinalEscape
 {
   public static class ExceptionExtension {
     public static bool LogException(this Exception exception) {
-      Console.Error.WriteLine("Exceptions happen: {0}", exception?.ToString());
+      Console.Error.WriteLine("Exceptions happen: {0}", exception);
       return false;
     }
   }
-  class FinalEscape {
 
-    public static void DoOperation(string some_file) {
+  internal static class FinalEscape
+  {
+
+    public static void DoOperation(string someFile)
+    {
       // Code to check or set character encoding
-      try {
-        StreamReader reader = new StreamReader(some_file);
+      try
+      {
+        var reader = new StreamReader(someFile);
         reader.Dispose();
         try
         {
@@ -50,37 +54,38 @@ namespace SecureCSharp
           Console.Error.WriteLine("Exception: {0}", e.ToString());
         }
         */
-        finally {
-          try {
-            Console.Write((char)reader.Read());  // generate exception
+        finally
+        {
+          try
+          {
+            Console.Write((char) reader.Read()); // generate exception
           }
-          catch (IOException e) {
-            Console.Error.WriteLine("IOException: {0}", e.ToString());
+          catch (IOException e)
+          {
+            Console.Error.WriteLine("IOException: {0}", e);
           }
         }
       }
-      catch (IOException e) {
-        e.LogException();
-        // Forward to handler
-        throw;
-      }
+      catch (IOException e) when (e.LogException()) { }
     }
+  } // end class FinalEscape
 
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
-    static void Main()  {
+  internal class Program { 
+  [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
+  public static void Main()  {
       try {
-        DoOperation(
-          Environment.GetFolderPath(System.Environment.SpecialFolder.Personal) + 
-          @"\Visual Studio 2015\Projects\CSharpSC\FinalEscape\FinalEscape.txt");
+        FinalEscape.DoOperation(
+          Environment.GetFolderPath(Environment.SpecialFolder.Personal) + 
+          @"\Visual Studio 2015\Projects\CSharpSC\CSharpSC\FinalEscape\FinalEscape.txt");
       }
       catch (Exception e) {
-        Console.Error.WriteLine("Exception: {0}", e.ToString());
+        Console.Error.WriteLine("Exception: {0}", e);
       }
 
       // Keep the console window open in debug mode.
       Console.WriteLine("Press any key to exit.");
       Console.ReadKey();
-    }
-  }
-}
+    }  // end Main
+  } // end class Program 
+} // end namespace FinalEscape
 

@@ -1,6 +1,6 @@
 ﻿// The MIT License (MIT)
 // 
-// Copyright (c) 2017 Robert C. Seacord
+// Copyright (c) 2018 Robert C. Seacord
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -26,67 +26,61 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 
 [assembly: CLSCompliant(true)]
-namespace SecureCSharp
+namespace Rollback
 {
 
-    public class Book
+  public class Book
+  {
+    public Book(string title) => Title = title ?? throw new ArgumentNullException(paramName: nameof(title), message: "title cannot be a null reference");
+
+    public string Title { get; }
+  }
+
+  internal static class Rollback
+  {
+    public static void SerializeObjectGraph(FileStream fs, IFormatter formatter, object rootObj)
     {
-        private readonly string _Title;
+      // Save the current position of the file.
+      long beforeSerialization = fs.Position;
+      try
+      {
+        // Attempt to serialize the object graph to the file.
+        formatter.Serialize(fs, rootObj);
+      }
+      catch
+      {  // Catch all CLS and non-CLS exceptions.
+         // If ANYTHING goes wrong, reset the file back to a good state.
+        fs.Position = beforeSerialization;
 
-        public Book(string title)
-        {
-            if (title == null)
-            {
-                throw new ArgumentNullException(paramName: "title", message: "title cannot be a null reference");
-            }
-            _Title = title;
-        }
+        // Truncate the file.
+        fs.SetLength(fs.Position);
 
-        public string Title => _Title;
-    }
+        // NOTE: The preceding code isn't in a finally block because
+        // the stream should be reset only when serialization fails.
 
-    class Rollback
+        // Let the caller(s) know what happened by
+        // rethrowing the SAME exception.
+        throw;
+      }
+    } // end public static void SerializeObjectGraph
+  } // end class Rollback
+
+  internal class Program
+  {
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
+    private static void Main()
     {
-        public static void SerializeObjectGraph(FileStream fs, IFormatter formatter, Object rootObj)
-        {
-            // Save the current position of the file.
-            Int64 beforeSerialization = fs.Position;
-            try
-            {
-                // Attempt to serialize the object graph to the file.
-                formatter.Serialize(fs, rootObj);
-            }
-            catch
-            {  // Catch all CLS and non-CLS exceptions.
-               // If ANYTHING goes wrong, reset the file back to a good state.
-                fs.Position = beforeSerialization;
+      using (var fs = new FileStream(@"..\..\DataFile.dat", FileMode.Create))
+      {
+        Rollback.SerializeObjectGraph(fs, new BinaryFormatter(), new Book("Of Mice and Men"));
+      }
 
-                // Truncate the file.
-                fs.SetLength(fs.Position);
-
-                // NOTE: The preceding code isn't in a finally block because
-                // the stream should be reset only when serialization fails.
-
-                // Let the caller(s) know what happened by
-                // rethrowing the SAME exception.
-                throw;
-            }
-        } // end public static void SerializeObjectGraph
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
-        static void Main()
-        {
-            using (FileStream fs = new FileStream(@"..\..\DataFile.dat", FileMode.Create))
-            {
-                SerializeObjectGraph(fs, new BinaryFormatter(), new Book("Of Mice and Men"));
-            }
-
-            // Keep the console window open in debug mode.
-            Console.WriteLine("Press any key to exit.");
-            Console.ReadKey();
-        }
-    }
-}
+      // Keep the console window open in debug mode.
+      Console.WriteLine("Press any key to exit.");
+      Console.ReadKey();
+    } // end Main
+  } // end class Program
+}  // end namespace Rollback
 
 
 
@@ -134,32 +128,34 @@ namespace SecureCSharp
 
 
 /*
-internal static bool RollbackTransaction(FileStream fs, Int64 b4Serialization)
-{
-  // Catch all CLS and non-CLS exceptions.
-  // If ANYTHING goes wrong, reset the file back to a good state.
-  fs.Position = b4Serialization;
+    internal static bool RollbackTransaction(FileStream fs, long b4Serialization)
+    {
+      // Catch all CLS and non-CLS exceptions.
+      // If ANYTHING goes wrong, reset the file back to a good state.
+      fs.Position = b4Serialization;
 
-  // Truncate the file.
-  fs.SetLength(fs.Position);
+      // Truncate the file.
+      fs.SetLength(fs.Position);
 
-  // NOTE: The preceding code isn't in a finally block because
-  // the stream should be reset only when serialization fails.
+      // NOTE: The preceding code isn't in a finally block because
+      // the stream should be reset only when serialization fails.
 
-  return false;
-}
-public static void SerializeObjectGraph(FileStream fs, IFormatter formatter, Object rootObj)
-{
-  // Save the current position of the file.
-  Int64 beforeSerialization = fs.Position;
-  try
-  {
-    // Attempt to serialize the object graph to the file.
-    formatter.Serialize(fs, rootObj);
-  }
-  catch when (RollbackTransaction(fs, beforeSerialization))
-  {
-    Console.WriteLine("Never called");
-  }
-} // end public static void SerializeObjectGraph
+      return false;
+    }
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
+    public static void SerializeObjectGraph(FileStream fs, IFormatter formatter, object rootObj)
+    {
+      // Save the current position of the file.
+      long beforeSerialization = fs.Position;
+      try
+      {
+        // Attempt to serialize the object graph to the file.
+        formatter.Serialize(fs, rootObj);
+      }
+      catch when (RollbackTransaction(fs, beforeSerialization))
+      {
+        Console.WriteLine("Never called");
+      }
+    } // end public static void SerializeObjectGraph
+
 */

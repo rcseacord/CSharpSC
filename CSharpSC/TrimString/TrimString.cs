@@ -23,19 +23,18 @@
 using System;
 
 [assembly: CLSCompliant(true)]
-namespace SecureCSharp
+namespace CSharpSC
 {
-  static public class TrimString
+  public static class TrimString
   {
 
     private static string TrimBad(string str)
     {
-      char ch;
       int i;
       for (i = 0; i < str.Length; i += 1)
       {
-        ch = str[i];
-        if (!char.IsLetter(ch))
+          var ch = str[i];
+          if (!char.IsLetter(ch))
         {
           break;
         }
@@ -45,7 +44,7 @@ namespace SecureCSharp
 
     private static string TrimGood(string str)
     {
-      int i = 0;
+      int i;
       for (i = 0; i < str.Length; i += char.IsSurrogatePair(str, i) ? 2 : 1)
       {
         // determine if code point is character

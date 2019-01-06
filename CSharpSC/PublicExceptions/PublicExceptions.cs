@@ -24,66 +24,80 @@ using System;
 using System.Runtime.Serialization;
 
 [assembly: CLSCompliant(true)]
-namespace SecureCSharp
+namespace PublicExceptions
 {
-  // Violates this rule
-  [Serializable]
-  internal class FirstCustomException : Exception
-  {
-    internal FirstCustomException() { }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-    internal FirstCustomException(string message)
-        : base(message) { }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-    internal FirstCustomException(string message, Exception innerException)
-        : base(message, innerException) { }
-
-    protected FirstCustomException(SerializationInfo info, StreamingContext context)
-        : base(info, context) { }
-  }
-
-  // Does not violate this rule because
-  // SecondCustomException is public
-  [Serializable]
-  public class SecondCustomException : Exception
-  {
-    public SecondCustomException() { }
-
-    public SecondCustomException(string message)
-        : base(message) { }
-
-    public SecondCustomException(string message, Exception innerException)
-        : base(message, innerException) { }
-
-    protected SecondCustomException(SerializationInfo info, StreamingContext context)
-        : base(info, context) { }
-
-  }
-
-  // Does not violate this rule because
-  // ThirdCustomException it does not derive directly from
-  // Exception, SystemException, or ApplicationException
-  [Serializable]
-  internal class ThirdCustomException : SecondCustomException
-  {
-    internal ThirdCustomException() { }
-
-    internal ThirdCustomException(string message)
-        : base(message) { }
-
-    internal ThirdCustomException(string message, Exception innerException)
-        : base(message, innerException) { }
-
-    protected ThirdCustomException(SerializationInfo info, StreamingContext context)
-        : base(info, context) { }
-
-   static void Main()
+    // Violates this rule
+    [Serializable]
+    internal class FirstCustomException : Exception
     {
-      throw new FirstCustomException();
-      throw new SecondCustomException();
-      throw new ThirdCustomException();
+        internal FirstCustomException() { }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        internal FirstCustomException(string message)
+            : base(message) { }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        internal FirstCustomException(string message, Exception innerException)
+            : base(message, innerException) { }
+
+        protected FirstCustomException(SerializationInfo info, StreamingContext context)
+            : base(info, context) { }
     }
-  }
+
+    // Does not violate this rule because
+    // SecondCustomException is public
+    [Serializable]
+    public class SecondCustomException : Exception
+    {
+        public SecondCustomException() { }
+
+        public SecondCustomException(string message)
+            : base(message) { }
+
+        public SecondCustomException(string message, Exception innerException)
+            : base(message, innerException) { }
+
+        protected SecondCustomException(SerializationInfo info, StreamingContext context)
+            : base(info, context) { }
+
+    }
+
+    // Does not violate this rule because
+    // ThirdCustomException it does not derive directly from
+    // Exception, SystemException, or ApplicationException
+    [Serializable]
+    internal class ThirdCustomException : SecondCustomException
+    {
+        internal ThirdCustomException() { }
+
+        internal ThirdCustomException(string message)
+            : base(message) { }
+
+        internal ThirdCustomException(string message, Exception innerException)
+            : base(message, innerException) { }
+
+        protected ThirdCustomException(SerializationInfo info, StreamingContext context)
+            : base(info, context) { }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
+        static void Main()
+        {
+            switch (new Random().Next(1, 3))
+            {
+                case 1:
+                    Console.WriteLine("1st exception.");
+                    throw new FirstCustomException();
+                case 2:
+                    Console.WriteLine("2nd exception.");
+                    throw new SecondCustomException();
+                case 3:
+                    Console.WriteLine("3rd exception.");
+                    throw new ThirdCustomException();
+            }
+
+            // Keep the console window open in debug mode.
+            Console.WriteLine("Press any key to exit.");
+            Console.ReadKey();
+        }
+    }
 }

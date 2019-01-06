@@ -1,6 +1,6 @@
 ﻿// The MIT License (MIT)
 // 
-// Copyright (c) 2017 Robert C. Seacord
+// Copyright (c) 2018 Robert C. Seacord
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,22 +21,14 @@
 // SOFTWARE.
 
 using System;
-using System.Text;
 
-[assembly: CLSCompliant(true)]
-namespace SecureCSharp {
-  public class StringBuilderEquality
+namespace UnhandledException
+{
+  internal class UnhandledException
   {
-    /*
-    public static void Main()   {
-      StringBuilder sb1 = new StringBuilder("hello");
-      StringBuilder sb2 = new StringBuilder("hello");
-      Console.WriteLine(sb1.Equals(sb2));
-      Console.WriteLine(((Object)sb1).Equals(sb2));
-      Console.WriteLine(Equals(sb1, sb2));
-      Object sb3 = new StringBuilder("hello");
-      Console.WriteLine(sb3.Equals(sb2));
+    private static void Main()
+    {
+      throw new NotImplementedException();
     }
-    */
   }
 }

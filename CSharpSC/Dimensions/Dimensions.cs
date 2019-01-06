@@ -1,6 +1,6 @@
 ﻿// The MIT License (MIT)
 // 
-// Copyright (c) 2017 Robert C. Seacord
+// Copyright (c) 2018 Robert C. Seacord
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -26,70 +26,78 @@ using System;
 namespace SecureCSharp
 {
 
-    public static class ExceptionExtension
+  public static class ExceptionExtension
+  {
+    public static bool LogException(this Exception exception)
     {
-        public static bool LogException(this Exception exception)
-        {
-            Console.Error.WriteLine("Exceptions happen: {0}", exception?.ToString());
-            return false;
-        }
+      Console.Error.WriteLine("Exceptions happen: {0}", exception);
+      return false;
     }
-    public class Dimensions
+  }
+  public class Dimensions
+  {
+    private int _l, _w, _h;
+    private const int Pad = 2;
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "l")]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "w")]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "h")]
+    public Dimensions(int l, int w, int h)
     {
-        private int l, w, h;
-        private const int Pad = 2;
-        private const int MaxDim = 12;
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "l")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "w")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "h")]
-        public Dimensions(int l, int w, int h)
-        {
-            this.l = l;
-            this.w = w;
-            this.h = h;
-        }
-
-        private int GetVolumePackage(uint weight)
-        {
-            l += Pad;
-            w += Pad;
-            h += Pad;
-            if (weight > 20)
-            {
-                throw new ArgumentOutOfRangeException(message: "Excessive weight", paramName: nameof(weight));
-            }
-            int volume = l * w * h; // 12 * 12 * 12 = 1728
-            l -= Pad;
-            w -= Pad;
-            h -= Pad; // Revert
-            return volume;
-        }
-
-        public static void Main()
-        {
-            Dimensions d = new Dimensions(10, 10, 10);
-            try
-            {
-                Console.WriteLine(d.GetVolumePackage(21));
-            }
-            catch (ArgumentOutOfRangeException e)
-            {
-                e.LogException();
-            }
-
-            try
-            {
-                Console.WriteLine(d.GetVolumePackage(19)); // Prints 2744 instead of 1728
-            }
-            catch (ArgumentOutOfRangeException e)
-            {
-                e.LogException();
-            }
-
-        }
+      _l = l;
+      _w = w;
+      _h = h;
     }
-}
+
+    private int GetVolumePackage(uint weight)
+    {
+      _l += Pad;
+      _w += Pad;
+      _h += Pad;
+      if (weight > 20)
+      {
+        throw new ArgumentOutOfRangeException(message: "Excessive weight", paramName: nameof(weight));
+      }
+      int volume = _l * _w * _h; // 12 * 12 * 12 = 1728
+
+      // Revert fields
+      _l -= Pad;
+      _w -= Pad;
+      _h -= Pad; 
+
+      return volume;
+    }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
+    public static void Main()
+    {
+      bool status = true;
+      var d = new Dimensions(10, 10, 10);
+      try
+      {
+        Console.WriteLine(d.GetVolumePackage(21));
+      }
+      catch (ArgumentOutOfRangeException e)
+      {
+        status = e.LogException();
+      }
+
+      try
+      {
+        Console.WriteLine(d.GetVolumePackage(19)); // Prints 2744 instead of 1728
+      }
+      catch (ArgumentOutOfRangeException e)
+      {
+        status = e.LogException();
+      }
+
+      // Keep the console window open in debug mode.
+      Console.WriteLine("Press any key to exit.");
+      Console.ReadKey();
+      Environment.Exit(status ? 0 : 1);
+    }  // end Main
+  } // end class Dimensions
+} // end NameSpace
 
 
 
@@ -133,6 +141,6 @@ private int GetVolumePackage(uint weight) {
   if (weight > 20) {
     throw new ArgumentOutOfRangeException(message: "Weight out of range", paramName: nameof(weight));
   }
-  return (l + Pad) * (w + Pad) * (h + Pad);
+  return (_l + Pad) * (_w + Pad) * (_h + Pad);
 }
 */

@@ -23,7 +23,7 @@
 using System;
 using System.Text;
 
-namespace SecureCSharp
+namespace StringIntern
 {
   class StringIntern
   {

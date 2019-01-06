@@ -22,7 +22,7 @@
 
 using System;
 
-namespace SecureCSharp
+namespace StructVsClass
 {
 
   // Value type
@@ -83,7 +83,8 @@ namespace SecureCSharp
       // Value types are copied on assignment. p1 and p2 have 
       // the same values but are not the same object.
       Point p2 = p1;
-      Console.WriteLine("After assignment: ReferenceEquals(p1, p2) = {0}", Object.ReferenceEquals(p1, p2)); // false
+      // ReSharper disable once ReferenceEqualsWithValueType
+      Console.WriteLine("After assignment: ReferenceEquals(p1, p2) = {0}", ReferenceEquals(p1, p2)); // false
 
       // Copy or original?
       Test(point1, form1);

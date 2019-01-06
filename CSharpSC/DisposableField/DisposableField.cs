@@ -1,6 +1,6 @@
 ﻿// The MIT License (MIT)
 // 
-// Copyright (c) 2017 Robert C. Seacord
+// Copyright (c) 2018 Robert C. Seacord
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -24,67 +24,30 @@ using System;
 using System.IO;
 
 [assembly: CLSCompliant(true)]
-namespace SecureCSharp
+namespace DisposableField
 {
     // Implement the IDisposable interface and dispose of unmanaged resources. 
-    public class FileStreamHolder : IDisposable
+    public class FileStreamHolder
     {
-        FileStream newFile;
+      private readonly FileStream _newFile;
         public FileStreamHolder()
         {
-            newFile = new FileStream(@"..\..\file.txt", FileMode.Open);
+            _newFile = new FileStream(@"..\..\file.txt", FileMode.Open);
         }
-        public bool IsInvalid => newFile == null;
-        static void Main()
+        public bool IsInvalid => _newFile == null;
+
+      private static void Main()
         {
-            FileStreamHolder fsh = new FileStreamHolder();
-            try
-            {
-                if (fsh.IsInvalid)
-                {
-                    Console.WriteLine("Invalid file stream");
-                }
-                else
-                {
-                    Console.WriteLine(fsh.ToString());
-                }
-            }
-            finally
-            {
-                fsh.Dispose();
-            }
+            var fsh = new FileStreamHolder();
+            Console.WriteLine(fsh.IsInvalid ? "Invalid file stream" : fsh.ToString());
+
             // Keep the console window open in debug mode.
             Console.WriteLine("Press any key to exit.");
             Console.ReadKey();
         }
 
-        #region IDisposable Support
-        private bool disposedValue = false; // To detect redundant calls
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!disposedValue)
-            {
-                if (disposing)
-                {
-                    newFile.Close();
-                }
-                disposedValue = true;
-            }
-        }
-
-        // Because the class does not directly own any unmanaged resources, 
-        // it does NOT implement a finalizer.
-
-        // This code added to correctly implement the disposable pattern.
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-        #endregion
-    }
-}
+    }  // end class FileStreamHolder
+} // end namespace DisposableField
 
 
 
@@ -139,62 +102,56 @@ namespace SecureCSharp
 
 
 
-/*
-public class FileStreamHolder : IDisposable
-{
-FileStream newFile;
-public FileStreamHolder()
-{
-  newFile = new FileStream(@"..\..\file.txt", FileMode.Open);
-}
-public bool IsInvalid => newFile == null;
-static void Main()
-{
-  FileStreamHolder fsh = new FileStreamHolder();
-  try
-  {
-    if (fsh.IsInvalid)
-    {
-      Console.WriteLine("Invalid file stream");
-    }
-    else
-    {
-      Console.WriteLine(fsh.ToString());
-    }
-  }
-  finally
-  {
-    fsh.Dispose();
-  }
-  // Keep the console window open in debug mode.
-  Console.WriteLine("Press any key to exit.");
-  Console.ReadKey();
-}
+//namespace DisposableField
+//{
+//  // Implement the IDisposable interface and dispose of unmanaged resources. 
+//  public class FileStreamHolder : IDisposable
+//  {
+//    private readonly FileStream _newFile;
+//    public FileStreamHolder()
+//    {
+//      _newFile = new FileStream(@"..\..\file.txt", FileMode.Open);
+//    }
+//    public bool IsInvalid => _newFile == null;
 
-#region IDisposable Support
-private bool disposedValue = false; // To detect redundant calls
+//    private static void Main()
+//    {
+//      var fsh = new FileStreamHolder();
+//      try
+//      {
+//        Console.WriteLine(fsh.IsInvalid ? "Invalid file stream" : fsh.ToString());
+//      }
+//      finally
+//      {
+//        fsh.Dispose();
+//      }
+//      // Keep the console window open in debug mode.
+//      Console.WriteLine("Press any key to exit.");
+//      Console.ReadKey();
+//    }
 
-protected virtual void Dispose(bool disposing)
-{
-  if (!disposedValue)
-  {
-    if (disposing)
-    {
-      newFile.Close();
-    }
-    disposedValue = true;
-  }
-}
+//    #region IDisposable Support
+//    private bool _disposedValue; // To detect redundant calls
 
-// Because the class does not directly own any unmanaged resources, 
-// it does NOT implement a finalizer.
+//    protected virtual void Dispose(bool disposing)
+//    {
+//      if (_disposedValue) return;
+//      if (disposing)
+//      {
+//        _newFile.Close();
+//      }
+//      _disposedValue = true;
+//    }
 
-// This code added to correctly implement the disposable pattern.
-public void Dispose()
-{
-  Dispose(true);
-  GC.SuppressFinalize(this);
-}
-#endregion
-}
-*/
+//    // Because the class does not directly own any unmanaged resources, 
+//    // it does NOT implement a finalizer.
+
+//    // This code added to correctly implement the disposable pattern.
+//    public void Dispose()
+//    {
+//      Dispose(true);
+//      GC.SuppressFinalize(this);
+//    }
+//    #endregion
+//  }  // end class FileStreamHolder
+//} // end namespace DisposableField

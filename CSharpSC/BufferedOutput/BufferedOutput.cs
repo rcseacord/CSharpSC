@@ -1,6 +1,6 @@
 ﻿// The MIT License (MIT)
 // 
-// Copyright (c) 2017 Robert C. Seacord
+// Copyright (c) 2018 Robert C. Seacord
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -23,18 +23,18 @@
 using System;
 using System.IO;
 
-namespace SecureCSharp
+namespace BufferedOutput
 {
-  class BufferedOutput
+  internal class BufferedOutput
   {
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
-    static void Main()
+    private static void Main()
     {
       // Create a string array with the lines of text
       string[] lines = { "First line", "Second line", "Third line" };
 
       // Write the string array to a new file named "WriteLines.txt".
-      StreamWriter outputFile = new StreamWriter(@"..\..\WriteLines.txt");
+      var outputFile = new StreamWriter(@"..\..\WriteLines.txt");
 
       foreach (string line in lines)
       {

@@ -26,7 +26,7 @@ namespace SecureCSharp
 {
     public class FPinput
     {
-        internal static double currentBalance; // User's cash balance
+        internal static double CurrentBalance; // User's cash balance
         internal static void DoDeposit(string userInput)
         {
             double val = 0;
@@ -34,7 +34,7 @@ namespace SecureCSharp
             {
                 val = Convert.ToDouble(userInput);
             }
-            catch (System.FormatException)
+            catch (FormatException)
             {
                 Console.Error.WriteLine("input format error");
                 return;
@@ -52,14 +52,14 @@ namespace SecureCSharp
                 return;
             }
 
-            if (val >= double.MaxValue - currentBalance)
+            if (val >= double.MaxValue - CurrentBalance)
             {
                 Console.Error.WriteLine("input range error");
                 return;
             }
 
             Console.Error.WriteLine("updating balance");
-            currentBalance += val;
+            CurrentBalance += val;
 
         }
 
