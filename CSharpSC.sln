@@ -73,10 +73,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeDatabase", "Employe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandleLeak", "SafeHandleDemo\HandleLeak.csproj", "{C5E40CCE-904F-4F29-920C-5DAC41F98ABC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Execute", "Execute\Execute.csproj", "{177EA14E-1B09-4B1D-9D88-B4ED46AFB404}"
+EndProject
 Global
-	GlobalSection(Performance) = preSolution
-		HasPerformanceSessions = true
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|x64 = Debug|x64
@@ -490,6 +489,18 @@ Global
 		{C5E40CCE-904F-4F29-920C-5DAC41F98ABC}.Release|x64.Build.0 = Release|Any CPU
 		{C5E40CCE-904F-4F29-920C-5DAC41F98ABC}.Release|x86.ActiveCfg = Release|Any CPU
 		{C5E40CCE-904F-4F29-920C-5DAC41F98ABC}.Release|x86.Build.0 = Release|Any CPU
+		{177EA14E-1B09-4B1D-9D88-B4ED46AFB404}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{177EA14E-1B09-4B1D-9D88-B4ED46AFB404}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{177EA14E-1B09-4B1D-9D88-B4ED46AFB404}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{177EA14E-1B09-4B1D-9D88-B4ED46AFB404}.Debug|x64.Build.0 = Debug|Any CPU
+		{177EA14E-1B09-4B1D-9D88-B4ED46AFB404}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{177EA14E-1B09-4B1D-9D88-B4ED46AFB404}.Debug|x86.Build.0 = Debug|Any CPU
+		{177EA14E-1B09-4B1D-9D88-B4ED46AFB404}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{177EA14E-1B09-4B1D-9D88-B4ED46AFB404}.Release|Any CPU.Build.0 = Release|Any CPU
+		{177EA14E-1B09-4B1D-9D88-B4ED46AFB404}.Release|x64.ActiveCfg = Release|Any CPU
+		{177EA14E-1B09-4B1D-9D88-B4ED46AFB404}.Release|x64.Build.0 = Release|Any CPU
+		{177EA14E-1B09-4B1D-9D88-B4ED46AFB404}.Release|x86.ActiveCfg = Release|Any CPU
+		{177EA14E-1B09-4B1D-9D88-B4ED46AFB404}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -529,8 +540,12 @@ Global
 		{41008042-CB1B-478F-9FFA-98C3BC9EB12C} = {CFB2FEBC-E01A-44DF-B709-D13C04F27A67}
 		{1C91A7C0-B60C-477B-B136-6AA66152AAAE} = {CFB2FEBC-E01A-44DF-B709-D13C04F27A67}
 		{C5E40CCE-904F-4F29-920C-5DAC41F98ABC} = {CFB2FEBC-E01A-44DF-B709-D13C04F27A67}
+		{177EA14E-1B09-4B1D-9D88-B4ED46AFB404} = {CFB2FEBC-E01A-44DF-B709-D13C04F27A67}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {20E31201-6747-4A4B-9813-357B5CD0C1D1}
+	EndGlobalSection
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
 	EndGlobalSection
 EndGlobal
