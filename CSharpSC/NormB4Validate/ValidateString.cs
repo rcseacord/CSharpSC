@@ -33,6 +33,9 @@ namespace NormB4Validate
 
     public static string NormalizeandValidate(string s)
     {
+      // Normalize to form KC 
+      s = s.Normalize(NormalizationForm.FormKC);
+
       // Validate by checking for angle brackets
       Regex rgx = new Regex("[<>]", RegexOptions.IgnoreCase);
       Match match = rgx.Match(s);
@@ -46,8 +49,6 @@ namespace NormB4Validate
         Console.WriteLine("input valid");
       }
 
-      // Normalize to form KC 
-      s = s.Normalize(NormalizationForm.FormKC);
 
       return s;
     }

@@ -32,9 +32,11 @@ namespace Culture
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "System.Console.WriteLine(System.String)")]
     private static void ProcessAccount(string name)
     {
+
       if (name.ToUpper().Equals("ADMIN"))
       {
-        Console.WriteLine("admin".ToUpper() + " equals ADMIN");
+        Console.WriteLine("admin".ToUpper(CultureInfo.InvariantCulture) + " equals ADMIN");
+        throw new InvalidOperationException();
       }
       // process account 
     }
@@ -125,7 +127,8 @@ namespace Culture
 /*
 private static void processAccount(string name)
 {
-    if (name.ToUpper(CultureInfo.InvariantCulture).Equals("ADMIN"))
+//     //   if (name.Equals("ADMIN", StringComparison.InvariantCultureIgnoreCase))
+         if (name.ToUpper(CultureInfo.InvariantCulture).Equals("ADMIN", StringComparison.InvariantCulture))
     {
         Console.WriteLine("script".ToUpper(CultureInfo.InvariantCulture) + " equals ADMIN");
         return;
