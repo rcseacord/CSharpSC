@@ -35,6 +35,8 @@ namespace Execute
 
       Console.WriteLine("PrintArgs Path with Spaces");
       Console.WriteLine("PrintArgs.exe argument1 \"argument 2\"  \"\\some\\path with\\spaces\"");
+      Console.WriteLine("Press any key to continue.");
+      Console.ReadKey();
 
       try
       {
@@ -61,11 +63,11 @@ namespace Execute
       }
 
       Console.WriteLine("+-----------------------------------------------------+");
-      Console.WriteLine("Press any key to continue.");
-      Console.ReadKey();
 
       Console.WriteLine("PrintArgs Nested Quotes");
-      Console.WriteLine("PrintArgs.exe argument1 \"argument 2\"  \"\\some\\path with\\spaces\"");
+      Console.WriteLine("PrintArgs.exe argument1 \"she said, \"you had me at hello\"\"  \"\\some\\path with\\spaces\"");
+      Console.WriteLine("Press any key to continue.");
+      Console.ReadKey();
 
       try
       {
@@ -92,11 +94,11 @@ namespace Execute
       }
 
       Console.WriteLine("+-----------------------------------------------------+");
-      Console.WriteLine("Press any key to continue.");
-      Console.ReadKey();
 
       Console.WriteLine("PrintArgs Unbalanced Quotes");
       Console.WriteLine("PrintArgs argument1 \"argument\"2\" argument3 argument4");
+      Console.WriteLine("Press any key to continue.");
+      Console.ReadKey();
 
       try
       {
@@ -123,11 +125,11 @@ namespace Execute
       }
 
       Console.WriteLine("+-----------------------------------------------------+");
-      Console.WriteLine("Press any key to continue.");
-      Console.ReadKey();
 
       Console.WriteLine("PrintArgs trailing backslash");
       Console.WriteLine("PrintArgs \"\\some\\directory with\\spaces\\\" argument2");
+      Console.WriteLine("Press any key to continue.");
+      Console.ReadKey();
 
       try
       {
@@ -154,11 +156,10 @@ namespace Execute
       }
 
       Console.WriteLine("+-----------------------------------------------------+");
-      Console.WriteLine("Press any key to continue.");
-      Console.ReadKey();
-
       Console.WriteLine("command shell with &calc argument");
       Console.WriteLine("cmd.exe /C dir &calc");
+      Console.WriteLine("Press any key to continue.");
+      Console.ReadKey();
 
       try
       {
@@ -185,11 +186,11 @@ namespace Execute
       }
 
       Console.WriteLine("+-----------------------------------------------------+");
-      Console.WriteLine("Press any key to continue.");
-      Console.ReadKey();
 
       Console.WriteLine("Avoid invoking an external command by using library methods");
       Console.WriteLine("cmd.exe /C dir &calc");
+      Console.WriteLine("Press any key to continue.");
+      Console.ReadKey();
 
       try
       {
